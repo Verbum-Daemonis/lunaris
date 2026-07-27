@@ -1,0 +1,24 @@
+{
+  "name": "LUNARIS · VERBUM DAEMONIS",
+  "short_name": "LUNARIS",
+  "description": "Астрономический и ритуальный навигатор времени. Версия 1.0.0.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#07070b",
+  "theme_color": "#07070b",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "id": "./?app=lunaris-1.0.4",
+  "version": "1.0.4"
+}

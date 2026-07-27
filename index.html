@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+<meta content="#07070b" name="theme-color"/>
+<meta content="LUNARIS — живой ритуальный навигатор Ордена VERBUM DAEMONIS" name="description"/>
+<link href="manifest.webmanifest" rel="manifest"/>
+<title>LUNARIS · VERBUM DAEMONIS</title>
+<style>
+:root{--bg:#07070b;--panel:#111019cc;--panel2:#17131ddd;--line:#ffffff16;--gold:#dfbd70;--gold2:#f7e2ac;--ink:#f4eee4;--muted:#9f98a7;--good:#8bc9a0;--danger:#c78a96;--violet:#785d9b}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#07070b;color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;overflow-x:hidden}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.bg{position:fixed;inset:0;z-index:-5;background:radial-gradient(circle at 72% 8%,#2c203f 0,transparent 34%),radial-gradient(circle at 10% 82%,#3b1725 0,transparent 32%),#07070b}
+#stars{position:fixed;inset:0;z-index:-4}.veil{position:fixed;inset:-20%;z-index:-3;background:conic-gradient(from 0deg at 50% 50%,transparent,#6a4d8930,transparent,#8a4e5f20,transparent);filter:blur(70px);animation:veil 36s linear infinite}@keyframes veil{to{transform:rotate(360deg) scale(1.1)}}
+.shell{display:grid;grid-template-columns:92px minmax(0,1fr);min-height:100vh}.rail{position:sticky;top:0;height:100vh;border-right:1px solid var(--line);background:#09080ecc;backdrop-filter:blur(22px);display:flex;flex-direction:column;align-items:center;padding:18px 10px;z-index:30}.logo{width:56px;height:56px;border:1px solid #9b7948;border-radius:50%;display:grid;place-items:center;color:var(--gold2);font-size:28px;box-shadow:inset 0 0 25px #d9b86d16,0 0 30px #000}.rail nav{display:grid;gap:10px;margin-top:38px}.navbtn{width:54px;height:54px;border:1px solid transparent;border-radius:16px;background:transparent;color:#8e8794;font-size:20px}.navbtn.active,.navbtn:hover{background:#ffffff09;border-color:var(--line);color:var(--gold2)}.rail-bottom{margin-top:auto;display:grid;gap:8px}.mini{width:54px;height:44px;border:1px solid var(--line);border-radius:13px;background:#ffffff08;color:#ddd}
+main{width:100%;max-width:1600px;margin:auto;padding:24px clamp(18px,4vw,68px) 80px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:14px}.brand h1{font-family:Georgia,serif;font-size:20px;letter-spacing:.22em;margin:0}.brand small{font-size:8px;letter-spacing:.22em;color:#8f8794}.status{display:flex;align-items:center;gap:9px;color:#aaa3af;font-size:10px;padding:9px 12px;border:1px solid var(--line);border-radius:999px;background:#ffffff07}.dot{width:7px;height:7px;border-radius:50%;background:var(--good);box-shadow:0 0 14px var(--good);animation:pulse 2s infinite}@keyframes pulse{50%{opacity:.45;transform:scale(.75)}}
+.hero{min-height:760px;display:grid;grid-template-columns:minmax(320px,.88fr) minmax(520px,1.25fr);align-items:center;gap:5vw;padding:34px 0}.hero-copy .eyebrow{font-size:10px;letter-spacing:.25em;color:var(--gold);font-weight:900}.clock{font-family:Georgia,serif;font-size:clamp(84px,10vw,154px);line-height:.9;letter-spacing:-.07em;font-variant-numeric:tabular-nums;white-space:nowrap}.date{color:var(--gold2);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-top:12px}.hero-copy h2{font-family:Georgia,serif;font-size:clamp(36px,4vw,68px);line-height:1.02;margin:35px 0 15px}.hero-copy h2 em{color:var(--gold2);font-style:normal}.hero-copy p{max-width:620px;color:#b4acb9;line-height:1.8}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}.primary,.ghost{border-radius:14px;padding:14px 18px;font-weight:800}.primary{border:0;background:linear-gradient(135deg,#f0cf82,#b88a3c);color:#171008;box-shadow:0 15px 40px #d5aa5530}.ghost{border:1px solid var(--line);background:#ffffff08;color:var(--ink)}
+.sphere-wrap{position:relative;min-height:650px;display:grid;place-items:center}.sphere{width:min(620px,78vw);aspect-ratio:1;border-radius:50%;position:relative;display:grid;place-items:center;isolation:isolate}.sphere:before{content:"";position:absolute;inset:7%;border:1px solid #d7b56a33;border-radius:50%;box-shadow:0 0 120px #745d9830,inset 0 0 70px #000}.ring{position:absolute;border:1px solid #d9b86d28;border-radius:50%;animation:spin linear infinite}.r1{inset:2%;animation-duration:45s}.r2{inset:15% 1%;transform:rotate(25deg);animation-duration:34s;animation-direction:reverse}.r3{inset:4% 21%;transform:rotate(-24deg);animation-duration:29s}.r4{inset:27% 0;animation-duration:55s}@keyframes spin{to{transform:rotate(360deg)}}.ticks{position:absolute;inset:0;border-radius:50%;background:repeating-conic-gradient(from -90deg,#dcbf7d55 0 1deg,transparent 1deg 15deg);mask:radial-gradient(transparent 0 48%,#000 49% 51%,transparent 52%)}.moon{width:48%;aspect-ratio:1;border-radius:50%;position:relative;overflow:hidden;background:radial-gradient(circle at 32% 28%,#fff7df,#c9bfa5 52%,#6d685d);box-shadow:0 0 50px #ffe5a344,0 0 150px #745a9238;animation:moonBreath 6s ease-in-out infinite}@keyframes moonBreath{50%{transform:scale(1.025);box-shadow:0 0 75px #ffe5a355,0 0 190px #745a9242}}.moon:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 25% 28%,#55504455 0 6%,transparent 7%),radial-gradient(circle at 70% 60%,#514c4255 0 10%,transparent 11%),radial-gradient(circle at 46% 73%,#69625344 0 5%,transparent 6%);animation:texture 15s ease-in-out infinite alternate}@keyframes texture{to{transform:translate(2%,-2%) scale(1.03)}}.shadow{position:absolute;inset:-3%;border-radius:50%;background:#08080c;z-index:2;transition:transform 1s ease}.core{position:absolute;text-align:center;z-index:4;pointer-events:none}.core .phase{font-family:Georgia,serif;font-size:22px}.core .illum{font-size:10px;color:#aaa2af;margin-top:6px}.planet-orb{position:absolute;right:7%;bottom:15%;width:118px;height:118px;border:1px solid #d7b56a55;border-radius:50%;background:#0c0a11dd;display:grid;place-items:center;box-shadow:0 18px 50px #000b;animation:float 5s ease-in-out infinite}@keyframes float{50%{transform:translateY(-9px)}}.planet-orb b{font-size:48px;color:var(--gold2)}.planet-orb span{position:absolute;bottom:15px;font-size:8px;letter-spacing:.14em;color:#aaa}
+.ribbon{position:absolute;left:3%;bottom:10%;width:190px;padding:15px;border:1px solid var(--line);border-radius:17px;background:#0e0c13d9;backdrop-filter:blur(16px)}.ribbon small{font-size:8px;letter-spacing:.15em;color:var(--gold)}.ribbon strong{display:block;font-family:Georgia,serif;font-size:20px;margin:8px 0}.ribbon span{font-size:10px;color:#aaa}
+.section{padding:66px 0}.section-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:22px}.section-head h2{font-family:Georgia,serif;font-size:clamp(34px,4vw,58px);margin:5px 0}.section-head p{color:var(--muted);max-width:670px;line-height:1.7}.eyebrow{font-size:9px;color:var(--gold);letter-spacing:.22em;font-weight:900}
+.intent-dock{display:flex;gap:9px;overflow:auto;padding:4px 0 12px;scrollbar-width:none}.intent-dock button{flex:0 0 auto;border:1px solid var(--line);background:#ffffff06;color:#bbb3bf;border-radius:999px;padding:11px 15px}.intent-dock button.active{background:linear-gradient(135deg,#e0bd70,#a97935);color:#160f08;border-color:transparent;box-shadow:0 8px 30px #d4a65228}
+.navigator{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}.glass{background:linear-gradient(145deg,#16131ddd,#0d0b12e6);border:1px solid var(--line);box-shadow:0 28px 70px #0008;backdrop-filter:blur(18px)}.now-panel{border-radius:26px;padding:26px;min-height:430px;display:grid;grid-template-columns:210px 1fr;gap:25px}.planet-seal{width:190px;height:190px;border-radius:50%;border:1px solid #b69051;display:grid;place-items:center;font-size:92px;color:var(--gold2);box-shadow:inset 0 0 60px #d8b56513,0 0 60px #000;position:relative}.planet-seal:after{content:"";position:absolute;inset:-13px;border:1px dashed #d7b56a33;border-radius:50%;animation:spin 25s linear infinite}.now-info h3{font-family:Georgia,serif;font-size:42px;margin:6px 0}.time-window{font-size:13px;color:var(--gold2)}.strength{display:flex;gap:7px;flex-wrap:wrap;margin:17px 0}.strength span{padding:7px 10px;border:1px solid var(--line);background:#ffffff06;border-radius:999px;font-size:10px}.explain{display:grid;grid-template-columns:1fr 1fr;gap:10px}.explain div{padding:14px;border-radius:14px;background:#ffffff05}.explain b{font-size:9px;letter-spacing:.12em}.explain p{font-size:11px;line-height:1.55;color:#b8afbc}.good b{color:var(--good)}.avoid b{color:var(--danger)}.progress{height:3px;background:#ffffff0d;border-radius:99px;margin:20px 0}.progress span{display:block;height:100%;width:50%;background:linear-gradient(90deg,#b88b3e,#f4dfa5);box-shadow:0 0 15px #d9b86d80}
+.next-panel{border-radius:26px;padding:24px;display:flex;flex-direction:column}.next-panel h3{font-family:Georgia,serif;font-size:32px;margin:8px 0}.next-time{font-size:44px;font-family:Georgia,serif;color:var(--gold2)}.why{margin:17px 0;padding:15px;border-left:2px solid var(--gold);background:#d9b86d0b;color:#bcb3bf;font-size:11px;line-height:1.6}.mini-cycle{display:grid;gap:8px;margin-top:auto}.mini-hour{display:grid;grid-template-columns:48px 1fr auto;gap:10px;align-items:center;padding:10px;border-radius:12px;background:#ffffff05}.mini-hour i{font-style:normal;font-size:25px;color:var(--gold2)}.mini-hour b{display:block}.mini-hour span{font-size:9px;color:#8f8795}
+.daywheel{border-radius:28px;padding:24px;overflow:hidden}.wheel-track{display:grid;grid-template-columns:repeat(24,minmax(94px,1fr));gap:8px;overflow:auto;padding:8px 2px 16px;scroll-snap-type:x mandatory}.hour-node{scroll-snap-align:center;border:1px solid var(--line);border-radius:16px;padding:13px;background:#ffffff04;min-height:152px;display:flex;flex-direction:column;transition:.25s}.hour-node.current{border-color:#d2aa61;transform:translateY(-5px);background:linear-gradient(180deg,#2c2118,#141019)}.hour-node.match{box-shadow:0 0 0 1px #86c69a45}.hour-node.dim{opacity:.25}.hour-node .sym{font-size:28px;color:var(--gold2)}.hour-node b{font-size:12px;margin-top:9px}.hour-node time{font-size:9px;color:#938a98;margin-top:5px}.hour-node small{margin-top:auto;color:#aaa;font-size:8px;line-height:1.4}
+.lunar-story{display:grid;grid-template-columns:1fr 1.2fr;gap:16px}.moon-timeline{border-radius:28px;padding:25px}.phase-rail{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.phase-step{position:relative;border:1px solid var(--line);border-radius:18px;padding:16px;min-height:210px;background:#ffffff04;transition:.3s}.phase-step.active{border-color:#c99f58;background:linear-gradient(145deg,#2b2118,#111019);transform:translateY(-6px)}.phase-step i{font-style:normal;font-size:38px;color:var(--gold2)}.phase-step h4{font-family:Georgia,serif;font-size:20px;margin:12px 0 7px}.phase-step p{font-size:10px;line-height:1.55;color:#a79eac}.phase-step button{position:absolute;left:13px;right:13px;bottom:13px;border:0;border-radius:10px;padding:9px;background:#d9b86d12;color:var(--gold2)}
+.weather-panel{border-radius:28px;padding:26px;display:grid;grid-template-columns:1fr 1fr;gap:16px}.weather-main .temp{font-family:Georgia,serif;font-size:78px}.weather-main h3{font-family:Georgia,serif;font-size:28px;margin:0}.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.metric{padding:14px;border-radius:14px;background:#ffffff05}.metric span{font-size:9px;color:#8e8793}.metric b{display:block;margin-top:5px}
+.signature{margin-top:65px;border:1px solid #9e7c4850;border-radius:26px;padding:28px;text-align:center;background:radial-gradient(circle at 50% 0,#d9b86d12,transparent 55%),#0d0b12;box-shadow:0 25px 70px #0009}.signature .sigil{font-size:30px;color:var(--gold2)}.signature strong{display:block;font-family:Georgia,serif;font-size:clamp(22px,3vw,36px);line-height:1.25;margin:12px auto;max-width:850px}.signature b{font-size:11px;letter-spacing:.18em;color:var(--gold2)}
+.mobile-nav{display:none}.modal{position:fixed;inset:0;z-index:100;display:none;place-items:center;padding:18px}.modal.open{display:grid}.backdrop{position:absolute;inset:0;background:#020204d9;backdrop-filter:blur(15px)}.dialog{position:relative;width:min(520px,100%);max-height:92vh;overflow:auto;border-radius:25px;padding:27px}.close{position:absolute;right:14px;top:13px;width:36px;height:36px;border:0;border-radius:50%;background:#ffffff0a;color:#ddd}.dialog label{display:grid;gap:7px;margin:12px 0;font-size:10px;color:#aaa}.dialog input,.dialog select,.dialog textarea{width:100%;border:1px solid var(--line);background:#0d0b11;color:var(--ink);border-radius:11px;padding:13px}.two{display:grid;grid-template-columns:1fr 1fr;gap:9px}.lang-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}.lang-card{border:1px solid var(--line);border-radius:16px;background:#ffffff05;color:var(--ink);padding:15px;text-align:left;display:flex;gap:12px;align-items:center}.lang-card.active{border-color:#c99f58;background:#2a2018}.flag{font-size:29px;animation:flag 2.8s ease-in-out infinite;transform-origin:left center}@keyframes flag{50%{transform:perspective(100px) rotateY(15deg) translateY(-2px)}}.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;z-index:200;background:#17131d;border:1px solid var(--line);border-radius:999px;padding:12px 18px;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:1050px){.shell{grid-template-columns:1fr}.rail{display:none}.hero{grid-template-columns:1fr;min-height:auto;padding-top:55px}.hero-copy{text-align:center}.hero-copy p{margin-inline:auto}.actions{justify-content:center}.sphere-wrap{min-height:590px}.navigator,.lunar-story{grid-template-columns:1fr}.mobile-nav{display:grid;position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:60;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:20px;padding:8px;background:#0c0a11e8;backdrop-filter:blur(18px)}.mobile-nav button{border:0;background:transparent;color:#918996;padding:8px;font-size:10px}.mobile-nav b{display:block;font-size:20px;color:var(--gold2);margin-bottom:3px}.topbar{padding-top:env(safe-area-inset-top)}main{padding-bottom:115px}}
+@media(max-width:700px){main{padding-inline:16px}.topbar .brand small{display:none}.hero{padding-top:30px}.clock{font-size:75px}.hero-copy h2{font-size:42px}.sphere-wrap{min-height:480px}.sphere{width:min(94vw,500px)}.planet-orb{width:90px;height:90px}.planet-orb b{font-size:38px}.ribbon{width:156px;left:0}.ribbon strong{font-size:17px}.now-panel{grid-template-columns:1fr;min-height:auto}.planet-seal{width:130px;height:130px;font-size:65px}.explain{grid-template-columns:1fr}.phase-rail{display:flex;overflow:auto;scroll-snap-type:x mandatory;padding-bottom:10px}.phase-step{flex:0 0 82%;scroll-snap-align:center}.weather-panel{grid-template-columns:1fr}.section{padding:48px 0}.section-head{display:block}.signature{padding:22px 16px}.lang-grid{grid-template-columns:1fr}.modal{align-items:end;padding:0}.dialog{width:100%;border-radius:25px 25px 0 0}}
+
+/* ===== LUNARIS v15: true mobile-first responsive layer ===== */
+html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+img, canvas, svg { max-width: 100%; }
+button, input, select, textarea { min-width: 0; }
+main { min-width: 0; }
+section { scroll-margin-top: 20px; }
+
+@media (max-width: 1050px) {
+  body { padding-bottom: calc(92px + env(safe-area-inset-bottom)); }
+  .shell { display: block; }
+  .rail { display: none !important; }
+  main {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    padding:
+      calc(12px + env(safe-area-inset-top))
+      14px
+      calc(118px + env(safe-area-inset-bottom));
+  }
+
+  .topbar {
+    position: sticky;
+    top: 8px;
+    z-index: 55;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 17px;
+    background: rgba(10, 8, 15, .82);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 16px 40px rgba(0,0,0,.28);
+  }
+  .brand h1 { font-size: 17px; letter-spacing: .16em; }
+  .status {
+    max-width: 52%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 8px 10px;
+  }
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    gap: 22px;
+    padding: 32px 0 24px;
+  }
+  .hero-copy {
+    width: 100%;
+    text-align: left;
+    order: 1;
+  }
+  .hero-copy .eyebrow { font-size: 9px; }
+  .clock {
+    font-size: clamp(58px, 19vw, 94px);
+    line-height: .96;
+    letter-spacing: -.055em;
+    margin-top: 8px;
+  }
+  .date { margin-top: 8px; font-size: 9px; line-height: 1.5; }
+  .hero-copy h2 {
+    font-size: clamp(34px, 10vw, 51px);
+    margin: 28px 0 13px;
+    max-width: 12ch;
+  }
+  .hero-copy p {
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 0;
+  }
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .primary, .ghost {
+    width: 100%;
+    min-height: 52px;
+    padding: 14px 16px;
+    border-radius: 15px;
+    font-size: 15px;
+  }
+
+  .sphere-wrap {
+    order: 2;
+    width: 100%;
+    min-height: auto;
+    padding: 6px 0 0;
+  }
+  .sphere {
+    width: min(92vw, 480px);
+    max-width: 100%;
+    margin-inline: auto;
+  }
+  .moon { width: 50%; }
+  .core .phase { font-size: clamp(17px, 5.5vw, 25px); }
+  .core .illum { font-size: 9px; }
+  .planet-orb {
+    width: 82px;
+    height: 82px;
+    right: 2%;
+    bottom: 11%;
+  }
+  .planet-orb b { font-size: 34px; }
+  .planet-orb span { bottom: 9px; font-size: 7px; }
+  .ribbon {
+    left: 0;
+    bottom: 5%;
+    width: min(43vw, 165px);
+    padding: 12px;
+  }
+  .ribbon strong { font-size: 16px; }
+  .ribbon span { font-size: 8px; }
+
+  .section { padding: 42px 0; }
+  .section-head { display: block; margin-bottom: 18px; }
+  .section-head h2 {
+    font-size: clamp(31px, 9vw, 46px);
+    line-height: 1.02;
+    margin: 7px 0 10px;
+  }
+  .section-head p { font-size: 13px; line-height: 1.65; }
+
+  .intent-dock {
+    margin-inline: -14px;
+    padding: 4px 14px 13px;
+    scroll-padding-left: 14px;
+  }
+  .intent-dock button {
+    min-height: 42px;
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+
+  .navigator {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+  }
+  .now-panel {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    gap: 18px;
+    padding: 20px;
+    border-radius: 22px;
+  }
+  .planet-seal {
+    width: 108px;
+    height: 108px;
+    font-size: 56px;
+    align-self: flex-start;
+  }
+  .now-info { width: 100%; min-width: 0; }
+  .now-info h3 {
+    font-size: clamp(31px, 9vw, 42px);
+    line-height: 1.02;
+    overflow-wrap: anywhere;
+  }
+  .time-window { font-size: 12px; }
+  .strength { margin: 14px 0; }
+  .strength span { font-size: 9px; padding: 7px 9px; }
+  .explain {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .explain div { padding: 13px; }
+  .explain p { font-size: 12px; }
+  .progress { margin: 16px 0; }
+
+  .next-panel {
+    padding: 20px;
+    border-radius: 22px;
+    min-height: 0;
+  }
+  .next-panel h3 { font-size: 30px; }
+  .next-time { font-size: 47px; }
+  .why { font-size: 12px; }
+  .mini-hour { grid-template-columns: 38px minmax(0,1fr) auto; }
+
+  .daywheel {
+    padding: 18px 14px;
+    border-radius: 22px;
+  }
+  .wheel-track {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(132px, 42vw);
+    gap: 9px;
+    margin-inline: -2px;
+    padding-bottom: 13px;
+  }
+  .hour-node {
+    min-height: 142px;
+    padding: 12px;
+  }
+  .hour-node.current { transform: none; }
+
+  .lunar-story {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+  }
+  .moon-timeline, .weather-panel {
+    border-radius: 22px;
+    padding: 18px;
+  }
+  .phase-rail {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(78vw, 310px);
+    grid-template-columns: none;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 8px 2px 14px;
+  }
+  .phase-step {
+    min-height: 230px;
+    scroll-snap-align: center;
+    padding: 18px;
+  }
+  .phase-step.active { transform: none; }
+  .phase-step h4 { font-size: 23px; }
+  .phase-step p { font-size: 12px; }
+
+  .weather-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .weather-main .temp { font-size: 74px; }
+  .metrics { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .metric { min-width: 0; }
+  .metric b { overflow-wrap: anywhere; }
+
+  #planner .section-head .primary { margin-top: 15px; }
+  #practiceList { padding: 16px !important; border-radius: 22px !important; }
+
+  .signature {
+    margin-top: 46px;
+    padding: 24px 16px;
+    border-radius: 22px;
+  }
+  .signature strong {
+    font-size: clamp(23px, 7vw, 34px);
+    line-height: 1.2;
+  }
+  .signature b {
+    display: block;
+    margin-top: 12px;
+    font-size: 9px;
+    line-height: 1.6;
+  }
+
+  .mobile-nav {
+    display: grid;
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    bottom: calc(8px + env(safe-area-inset-bottom));
+    z-index: 90;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    gap: 3px;
+    padding: 8px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: rgba(10, 8, 15, .92);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 22px 65px rgba(0,0,0,.55);
+  }
+  .mobile-nav button {
+    min-width: 0;
+    min-height: 54px;
+    padding: 7px 3px;
+    border-radius: 13px;
+    font-size: 9px;
+    line-height: 1.15;
+  }
+  .mobile-nav b { font-size: 19px; }
+
+  .modal { align-items: end; padding: 0; }
+  .dialog {
+    width: 100%;
+    max-height: 88dvh;
+    padding: 25px 17px calc(20px + env(safe-area-inset-bottom));
+    border-radius: 25px 25px 0 0;
+  }
+  .dialog h2 { font-size: 32px; margin-right: 42px; }
+  .two { grid-template-columns: 1fr; }
+  .lang-grid { grid-template-columns: 1fr; }
+  .lang-card { min-height: 60px; }
+}
+
+@media (max-width: 390px) {
+  main { padding-inline: 11px; }
+  .topbar { padding: 9px 10px; }
+  .brand h1 { font-size: 15px; }
+  .status { max-width: 48%; font-size: 8px; }
+  .clock { font-size: 61px; }
+  .hero-copy h2 { font-size: 36px; }
+  .hero-copy p { font-size: 13px; }
+  .sphere { width: 96vw; margin-left: 50%; transform: translateX(-50%); }
+  .ribbon { width: 150px; }
+  .planet-orb { width: 74px; height: 74px; }
+  .planet-orb b { font-size: 31px; }
+  .phase-rail { grid-auto-columns: 86vw; }
+  .wheel-track { grid-auto-columns: 145px; }
+  .metrics { grid-template-columns: 1fr 1fr; gap: 7px; }
+  .metric { padding: 11px; }
+}
+
+@media (min-width: 1051px) {
+  .mobile-nav { display: none !important; }
+  .hero { min-height: 720px; }
+  .now-panel { align-items: center; }
+}
+
+
+@media(max-width:1050px){
+  .topbar{position:sticky}
+  .mobile-top-actions{display:flex!important;gap:7px}
+  .mobile-top-actions button{width:38px;height:38px;border:1px solid var(--line);border-radius:12px;background:#ffffff08;color:var(--gold2)}
+  .topbar>.status{margin-left:auto}
+}
+@media(max-width:560px){
+  .topbar>.status{display:none}
+}
+
+
+/* ===== LUNARIS 0.9.1 final readability and install polish ===== */
+:root{
+  --ink:#f1ece4;
+  --muted:#b8b1bd;
+  --line:#ffffff20;
+  --panel:#121019ee;
+  --panel2:#191620ee;
+}
+body{
+  font-size:16px;
+  line-height:1.6;
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+}
+p, .why, .phase-step p, .explain p, .weather-main p, .dialog p{
+  color:#c4bdc8;
+  line-height:1.72;
+  letter-spacing:.005em;
+}
+.eyebrow{
+  letter-spacing:.16em;
+  line-height:1.45;
+}
+.glass{
+  background:linear-gradient(145deg,rgba(25,22,31,.96),rgba(14,12,19,.97));
+  border-color:rgba(255,255,255,.10);
+}
+.section-head p{max-width:760px}
+.now-info h3,.section-head h2,.next-panel h3,.phase-step h4{
+  text-wrap:balance;
+}
+.explain div,.metric,.mini-hour,.phase-step,.hour-node{
+  background:rgba(255,255,255,.055);
+}
+.explain p,.phase-step p,.hour-node small,.mini-hour span{
+  font-size:12px;
+}
+.hour-node b{font-size:13px}
+.hour-node time{font-size:10px}
+.signature{
+  background:
+    radial-gradient(circle at 50% 0,rgba(223,189,112,.12),transparent 55%),
+    rgba(13,11,18,.97);
+}
+.signature strong{
+  font-weight:700;
+  color:#f4eee4;
+}
+.version-mark{
+  display:block;
+  margin-top:12px;
+  color:#9991a0;
+  font-size:10px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.brand small{color:#aaa2af}
+
+.install-cta{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  overflow:hidden;
+  border-color:rgba(223,189,112,.36);
+  background:
+    linear-gradient(135deg,rgba(223,189,112,.16),rgba(255,255,255,.055));
+  box-shadow:0 14px 44px rgba(190,146,62,.16);
+  animation:installGlow 3.2s ease-in-out infinite;
+}
+.install-cta:before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.20) 45%,transparent 70%);
+  transform:translateX(-120%);
+  animation:installSweep 4s ease-in-out infinite;
+}
+.install-cta>*{position:relative;z-index:1}
+.install-cta-icon{
+  width:34px;height:34px;border-radius:50%;
+  display:grid;place-items:center;
+  background:rgba(223,189,112,.17);
+  color:var(--gold2);
+  font-size:20px;
+  animation:installArrow 1.8s ease-in-out infinite;
+}
+.install-cta b,.install-cta small{display:block;text-align:left}
+.install-cta b{font-size:14px;color:#f4eee4}
+.install-cta small{font-size:9px;color:#aaa2ae;margin-top:2px}
+.install-mini,.install-mobile{
+  position:relative;
+  overflow:hidden;
+  border-color:rgba(223,189,112,.34)!important;
+  box-shadow:0 0 0 0 rgba(223,189,112,.26);
+  animation:installPulse 2.7s ease-out infinite;
+}
+.install-mini span,.install-mobile span{
+  display:inline-block;
+  animation:installArrow 1.8s ease-in-out infinite;
+}
+.install-lead{
+  margin-top:-8px;
+  margin-bottom:18px;
+  color:#bdb5c1;
+}
+.install-modal-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  animation:installGlow 3.2s ease-in-out infinite;
+}
+.install-modal-btn span{animation:installArrow 1.8s ease-in-out infinite}
+@keyframes installGlow{
+  0%,100%{box-shadow:0 12px 38px rgba(190,146,62,.13)}
+  50%{box-shadow:0 16px 50px rgba(223,189,112,.28)}
+}
+@keyframes installSweep{
+  0%,55%{transform:translateX(-120%)}
+  85%,100%{transform:translateX(120%)}
+}
+@keyframes installArrow{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(4px)}
+}
+@keyframes installPulse{
+  0%{box-shadow:0 0 0 0 rgba(223,189,112,.22)}
+  65%{box-shadow:0 0 0 10px rgba(223,189,112,0)}
+  100%{box-shadow:0 0 0 0 rgba(223,189,112,0)}
+}
+
+/* Language selector: code first, then flag, then full name */
+.lang-card{
+  min-height:66px;
+  display:grid;
+  grid-template-columns:46px 40px minmax(0,1fr);
+  gap:10px;
+  align-items:center;
+  padding:13px 14px;
+}
+.lang-code{
+  font-weight:900;
+  color:var(--gold2);
+  letter-spacing:.08em;
+  font-size:15px;
+}
+.lang-card .flag{
+  font-size:27px;
+  text-align:center;
+}
+.lang-name b{
+  display:block;
+  color:#eee8df;
+  font-size:13px;
+}
+.lang-name small{
+  display:block;
+  color:#9d95a2;
+  font-size:9px;
+  margin-top:2px;
+}
+.lang-card.active{
+  box-shadow:inset 0 0 0 1px rgba(223,189,112,.24),0 12px 30px rgba(0,0,0,.24);
+}
+
+@media(max-width:1050px){
+  body{font-size:15px}
+  .hero-copy p,.section-head p{font-size:14px}
+  .explain p,.phase-step p,.why{font-size:13px}
+  .now-panel,.next-panel,.moon-timeline,.weather-panel,.daywheel{
+    box-shadow:0 18px 48px rgba(0,0,0,.35);
+  }
+  .hour-node small{font-size:10px}
+  .signature strong{font-size:clamp(22px,6.7vw,32px)}
+}
+@media(max-width:390px){
+  body{font-size:14px}
+  .hero-copy p,.section-head p{font-size:13px}
+  .lang-card{grid-template-columns:42px 36px minmax(0,1fr)}
+}
+@media(prefers-reduced-motion:reduce){
+  .install-cta,.install-mini,.install-mobile,.install-modal-btn,
+  .install-cta:before,.install-cta-icon,.install-mini span,.install-mobile span,.install-modal-btn span{
+    animation:none!important;
+  }
+}
+
+
+#langBtn,#mobileLangBtn{font-size:22px;line-height:1;padding:0;display:grid;place-items:center}
+#langBtn{width:54px}
+#mobileLangBtn{width:42px}
+.ios-install-steps{display:grid;gap:9px;margin:16px 0}
+.ios-install-steps[hidden]{display:none}
+.ios-install-steps div{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:center;padding:11px;border:1px solid var(--line);border-radius:12px;background:#ffffff08}
+.ios-install-steps b{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:rgba(223,189,112,.16);color:var(--gold2)}
+
+
+/* ===== Lunar month cycle 0.9.3 ===== */
+.lunar-month{
+  border-radius:28px;
+  padding:26px;
+  overflow:hidden;
+}
+.lunar-month-summary{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:20px;
+  align-items:end;
+}
+.lunar-month-summary h3{
+  font-family:Georgia,serif;
+  font-size:clamp(32px,4vw,48px);
+  margin:7px 0 8px;
+}
+.lunar-month-summary p{margin:0;color:#bfb7c3}
+.lunar-countdown{
+  min-width:220px;
+  padding:16px 18px;
+  border:1px solid var(--line);
+  border-radius:17px;
+  background:rgba(255,255,255,.05);
+  text-align:right;
+}
+.lunar-countdown small{display:block;color:#9c94a2;font-size:9px;letter-spacing:.08em}
+.lunar-countdown strong{display:block;margin-top:6px;font-family:Georgia,serif;font-size:27px;color:var(--gold2)}
+.lunar-cycle-track{
+  position:relative;
+  height:210px;
+  margin:34px 4px 18px;
+}
+.lunar-cycle-line,.lunar-cycle-progress{
+  position:absolute;
+  left:4%;right:4%;top:82px;height:3px;border-radius:99px;
+}
+.lunar-cycle-line{background:rgba(255,255,255,.11)}
+.lunar-cycle-progress{
+  right:auto;
+  width:0;
+  background:linear-gradient(90deg,#9c6b38,#efd48d);
+  box-shadow:0 0 20px rgba(223,189,112,.45);
+  transition:width .8s ease;
+}
+.lunar-cycle-marker{
+  position:absolute;
+  left:4%;top:65px;
+  width:36px;height:36px;
+  border:1px solid rgba(223,189,112,.65);
+  border-radius:50%;
+  background:#0b0910;
+  transform:translateX(-50%);
+  box-shadow:0 0 28px rgba(223,189,112,.38);
+  transition:left .8s ease;
+  z-index:4;
+}
+.lunar-cycle-marker span{
+  position:absolute;inset:8px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#fff1c7,#a1844d 70%,#392d1c);
+  animation:moonBreath 4s ease-in-out infinite;
+}
+.lunar-point{
+  position:absolute;
+  left:calc(4% + var(--x)*.92);
+  top:38px;
+  width:150px;
+  transform:translateX(-50%);
+  border:0;
+  background:transparent;
+  color:var(--ink);
+  text-align:center;
+  padding:0;
+}
+.lunar-point i{
+  display:grid;
+  place-items:center;
+  width:50px;height:50px;
+  margin:auto;
+  border:1px solid var(--line);
+  border-radius:50%;
+  background:#121019;
+  color:var(--gold2);
+  font-size:26px;
+}
+.lunar-point b{display:block;margin-top:44px;font-size:12px}
+.lunar-point time{display:block;margin-top:5px;color:#9f97a5;font-size:9px}
+.lunar-key-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+}
+.lunar-key-card{
+  min-width:0;
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:rgba(255,255,255,.045);
+}
+.lunar-key-card span{font-size:9px;color:#958e9b}
+.lunar-key-card b{display:block;margin-top:7px;font-size:15px;color:#eee7dc}
+.lunar-key-card small{display:block;margin-top:5px;font-size:9px;color:var(--gold2)}
+.lunar-meaning{
+  margin-top:14px;
+  padding:17px;
+  border-left:2px solid var(--gold);
+  background:rgba(223,189,112,.055);
+}
+.lunar-meaning p{margin:7px 0 0;color:#c5bdc8;line-height:1.7}
+
+@media(max-width:760px){
+  .lunar-month{padding:19px;border-radius:22px}
+  .lunar-month-summary{grid-template-columns:1fr;align-items:stretch}
+  .lunar-countdown{text-align:left;min-width:0}
+  .lunar-cycle-track{
+    height:300px;
+    margin:24px 0 12px;
+  }
+  .lunar-cycle-line,.lunar-cycle-progress{left:28px;right:auto;top:12px;bottom:12px;width:3px;height:auto}
+  .lunar-cycle-progress{height:0;bottom:auto;transition:height .8s ease}
+  .lunar-cycle-marker{
+    left:11px!important;
+    top:12px;
+    transform:translateY(-50%);
+    transition:top .8s ease;
+  }
+  .lunar-point{
+    left:0!important;
+    top:calc(12px + var(--x)*2.55);
+    width:100%;
+    transform:none;
+    display:grid;
+    grid-template-columns:52px 1fr auto;
+    gap:12px;
+    align-items:center;
+    text-align:left;
+  }
+  .lunar-point i{margin:0;width:44px;height:44px}
+  .lunar-point b{margin:0;font-size:13px}
+  .lunar-point time{margin:0;text-align:right;font-size:10px}
+  .lunar-key-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:420px){
+  .lunar-key-grid{grid-template-columns:1fr}
+}
+
+
+.forest-horizon{position:fixed;left:0;right:0;bottom:0;height:31vh;z-index:-4;opacity:.68;background:linear-gradient(to top,#030406 0 24%,transparent 25%),repeating-linear-gradient(73deg,transparent 0 30px,#050609 31px 38px,transparent 39px 66px);clip-path:polygon(0 48%,4% 31%,7% 54%,11% 19%,14% 52%,18% 34%,22% 58%,27% 17%,31% 51%,36% 29%,41% 57%,46% 14%,51% 49%,56% 27%,61% 56%,66% 18%,71% 50%,76% 31%,81% 58%,86% 19%,91% 49%,96% 29%,100% 53%,100% 100%,0 100%)}
+.cinematic-fog{position:fixed;left:-20%;right:-20%;bottom:-7%;height:44vh;z-index:-3;background:radial-gradient(ellipse at center,#d8ccdc1a,transparent 66%);filter:blur(38px);animation:fogDrift 25s ease-in-out infinite alternate}@keyframes fogDrift{to{transform:translateX(9%) scale(1.08);opacity:.75}}
+.moon-coordinates{position:absolute;right:0;top:10%;width:145px;padding:12px;border:1px solid var(--line);border-radius:15px;background:#0d0b12d6;backdrop-filter:blur(15px)}.moon-coordinates span,.moon-coordinates small{display:block;font-size:8px;color:#9991a0}.moon-coordinates b{display:block;font:500 22px Georgia,serif;margin:5px 0;color:var(--gold2)}.moon-coordinates i{font-style:normal}
+.planet-hall{display:grid;grid-template-columns:minmax(430px,1.15fr) .85fr;gap:18px;border-radius:28px;padding:22px}.planetarium{position:relative;min-height:560px;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:radial-gradient(circle at 50% 48%,#332440,#0b0a11 64%)}#aspectCanvas{position:absolute;inset:0;width:100%;height:100%}
+.planet-node{position:absolute;width:76px;height:76px;border:1px solid #d0ac6757;border-radius:50%;background:#0d0b13e8;display:grid;place-items:center;transform:translate(-50%,-50%);box-shadow:0 12px 35px #0009;transition:.25s}.planet-node:hover,.planet-node.active{border-color:#f0cf83;transform:translate(-50%,-50%) scale(1.1);box-shadow:0 0 35px #d7ad6042}.planet-node b{font-size:30px;color:var(--gold2)}.planet-node small{position:absolute;bottom:8px;font-size:7px;color:#a79fac}
+.planet-inspector{border-radius:22px;padding:22px;background:#ffffff04}.planet-inspector h3{font:500 42px Georgia,serif;margin:8px 0}.planet-stats{display:grid;grid-template-columns:1fr 1fr;gap:9px}.planet-stats div{padding:12px;border-radius:12px;background:#ffffff05}.planet-stats span{font-size:8px;color:#918a98}.planet-stats b{display:block;margin-top:5px;font-size:13px}.planet-history{margin-top:15px;padding:15px;border-left:2px solid var(--gold);background:#d9b86d09;color:#bdb5c1;font-size:11px;line-height:1.7}
+@media(max-width:1050px){.planet-hall{grid-template-columns:1fr;padding:18px}.planetarium{min-height:430px}.planet-node{width:62px;height:62px}.planet-node b{font-size:24px}.planet-inspector h3{font-size:35px}.moon-coordinates{width:122px;right:0;top:2%}.mobile-nav{grid-template-columns:repeat(5,1fr)}}
+@media(max-width:430px){.planetarium{min-height:380px}.planet-stats{grid-template-columns:1fr}.moon-coordinates{top:auto;bottom:27%;right:-2px}}
+
+
+#langBtn,#mobileLangBtn{font-size:23px;line-height:1;padding:0;display:grid;place-items:center}.lang-card{grid-template-columns:42px minmax(0,1fr)!important}.lang-code{display:none!important}.lang-name small{display:none!important}
+</style>
+</head>
+<body>
+<div class="bg"></div><canvas id="stars"></canvas><div class="veil"></div><div class="forest-horizon"></div><div class="cinematic-fog"></div>
+<div class="shell">
+<aside class="rail">
+<div class="logo">☾</div>
+<nav><button class="navbtn active" data-go="today">◐</button><button class="navbtn" data-go="hours">♄</button><button class="navbtn" data-go="planets">✧</button><button class="navbtn" data-go="moon">☽</button><button class="navbtn" data-go="planner">✦</button></nav>
+<div class="rail-bottom"><button aria-label="Language" class="mini" id="langBtn">🇷🇺</button><button aria-label="Установить приложение" class="mini install-mini" id="installBtn"><span>↓</span></button></div>
+</aside>
+<main>
+<header class="topbar"><div class="brand"><h1>LUNARIS</h1><small>VERBUM DAEMONIS · версия 1.0.4</small></div><div class="status"><span class="dot"></span><span id="status">Определяем местоположение…</span></div>
+<div class="mobile-top-actions" style="display:none">
+<button aria-label="Language" id="mobileLangBtn">🇷🇺</button>
+<button aria-label="Установить приложение" class="install-mobile" id="mobileInstallBtn"><span>↓</span></button>
+</div>
+</header>
+<section class="hero" id="today">
+<div class="hero-copy">
+<div class="eyebrow" id="heroEyebrow">ЖИВОЙ РИТУАЛЬНЫЙ НАВИГАТОР</div>
+<div class="clock" id="clock">--:--</div><div class="date" id="date">—</div>
+<h2 id="heroTitle">Видеть <em>время силы</em>, а не таблицу</h2>
+<p id="heroText">Выберите намерение — LUNARIS соединит фазу Луны, планетарный час, световой день и местные условия в одно понятное окно для практики.</p>
+<div class="actions"><button class="primary" id="quickPlan">＋ Запланировать</button><button class="ghost install-cta" data-install=""><span class="install-cta-icon">↓</span><span><b>Установить LUNARIS</b><small>На телефон или компьютер</small></span></button></div>
+</div>
+<div class="sphere-wrap">
+<div class="sphere">
+<div class="ticks"></div><div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="ring r4"></div>
+<div class="moon"><div class="shadow" id="moonShadow"></div></div>
+<div class="core"><div class="phase" id="moonPhase">—</div><div class="illum"><span id="moonPct">—</span> освещённости</div></div>
+<div class="planet-orb"><b id="orbSeal">♄</b><span id="orbName">САТУРН</span></div>
+<div class="ribbon"><small>ТЕКУЩЕЕ ОКНО</small><strong id="orbRange">—</strong><span id="orbRemain">расчёт…</span></div><div class="moon-coordinates"><span>Высота Луны</span><b id="moonAltitude">—°</b><small>азимут <i id="moonAzimuth">—°</i></small></div>
+</div>
+</div>
+</section>
+<section class="section" id="planets">
+<div class="section-head"><div><div class="eyebrow">ПЛАНЕТАРНЫЙ ЗАЛ</div><h2>Семь традиционных светил</h2><p>Положение в знаках, высота, азимут, традиционные сферы, металлы и основные аспекты.</p></div></div>
+<div class="planet-hall glass">
+<div class="planetarium" id="planetarium"><canvas id="aspectCanvas"></canvas></div>
+<article class="planet-inspector">
+<div class="eyebrow">ВЫБРАННОЕ СВЕТИЛО</div>
+<h3 id="planetDetailName">Сатурн</h3>
+<div class="strength" id="planetDetailTags"></div>
+<div class="planet-stats">
+<div><span>Знак</span><b id="planetSign">—</b></div>
+<div><span>Долгота</span><b id="planetLongitude">—</b></div>
+<div><span>Высота</span><b id="planetAltitude">—</b></div>
+<div><span>Азимут</span><b id="planetAzimuth">—</b></div>
+<div><span>Металл</span><b id="planetMetal">—</b></div>
+<div><span>Сфера</span><b id="planetSphere">—</b></div>
+</div>
+<div class="planet-history" id="planetHistory">—</div>
+</article>
+</div>
+</section>
+<section class="section" id="hours">
+<div class="section-head"><div><div class="eyebrow" id="hoursEyebrow">РИТУАЛЬНЫЙ КОМПАС</div><h2 id="hoursTitle">Что вы хотите совершить?</h2><p id="hoursText">После выбора LUNARIS выделит подходящие часы и покажет ближайшее сильное окно.</p></div></div>
+<div class="intent-dock" id="intentDock"></div>
+<div class="navigator">
+<article class="now-panel glass">
+<div class="planet-seal" id="currentSeal">♄</div>
+<div class="now-info"><div class="eyebrow">СЕЙЧАС</div><h3 id="currentTitle">Час Сатурна</h3><div class="time-window" id="currentRange">—</div><div class="strength" id="currentPowers"></div>
+<div class="explain"><div class="good"><b>✓ ПОДХОДИТ</b><p id="currentWorks">—</p></div><div class="avoid"><b>× НЕ СООТВЕТСТВУЕТ</b><p id="currentAvoid">—</p></div></div>
+<div class="progress"><span id="hourProgress"></span></div><button class="primary" id="planCurrent">Запланировать в этот час →</button></div>
+</article>
+<article class="next-panel glass"><div class="eyebrow" id="nextEyebrow">СЛЕДУЮЩЕЕ СИЛЬНОЕ ОКНО</div><h3 id="nextTitle">—</h3><div class="next-time" id="nextTime">—</div><div class="why" id="nextWhy">Выберите намерение.</div><button class="primary" id="planNext">Запланировать →</button><div class="mini-cycle" id="miniCycle"></div></article>
+</div>
+<div class="daywheel glass" style="margin-top:16px"><div class="eyebrow" id="wheelEyebrow">КРУГ СУТОК · 24 ПЛАНЕТАРНЫХ ЧАСА</div><div class="wheel-track" id="dayWheel"></div></div>
+</section>
+<section class="section" id="moon">
+<div class="section-head"><div><div class="eyebrow" id="moonEyebrow">ЛУННЫЙ ПУТЬ</div><h2 id="moonTitle">Четыре состояния силы</h2><p id="moonText">Не перечень современных советов, а традиционный ритм: сокрытие, прибавление, полнота и убывание.</p></div></div>
+<div class="lunar-story">
+<article class="moon-timeline glass"><div class="phase-rail" id="phaseRail"></div></article>
+<article class="weather-panel glass"><div class="weather-main"><div class="eyebrow">МЕСТНЫЕ УСЛОВИЯ</div><div class="temp" id="temp">—°</div><h3 id="weatherText">Ожидание данных</h3><p id="place" style="color:#999">Ваше местоположение</p></div><div class="metrics"><div class="metric"><span>Ощущается</span><b id="feels">—°</b></div><div class="metric"><span>Ветер</span><b id="wind">—</b></div><div class="metric"><span>Влажность</span><b id="humidity">—</b></div><div class="metric"><span>Давление</span><b id="pressure">—</b></div></div></article>
+</div>
+</section>
+<section class="section" id="lunarMonth">
+<div class="section-head">
+<div>
+<div class="eyebrow">ХОД ЛУННОГО МЕСЯЦА</div>
+<h2>От фазы к фазе</h2>
+<p>Текущий этап, ближайший переход и четыре ключевые точки лунного месяца.</p>
+</div>
+</div>
+<article class="lunar-month glass">
+<div class="lunar-month-summary">
+<div>
+<span class="eyebrow">СЕЙЧАС</span>
+<h3 id="lunarCurrentPhase">—</h3>
+<p id="lunarTransitionText">—</p>
+</div>
+<div class="lunar-countdown">
+<small id="lunarNextLabel">До следующего перехода</small>
+<strong id="lunarNextCountdown">—</strong>
+</div>
+</div>
+<div aria-label="Ход лунного месяца" class="lunar-cycle-track">
+<div class="lunar-cycle-line"></div>
+<div class="lunar-cycle-progress" id="lunarCycleProgress"></div>
+<div class="lunar-cycle-marker" id="lunarCycleMarker"><span></span></div>
+<button class="lunar-point" data-point="new" style="--x:0%">
+<i>●</i><b>Новолуние</b><time id="newMoonDate">—</time>
+</button>
+<button class="lunar-point" data-point="first" style="--x:25%">
+<i>◐</i><b>Первая четверть</b><time id="firstQuarterDate">—</time>
+</button>
+<button class="lunar-point" data-point="full" style="--x:50%">
+<i>○</i><b>Полнолуние</b><time id="fullMoonDateExact">—</time>
+</button>
+<button class="lunar-point" data-point="last" style="--x:75%">
+<i>◑</i><b>Последняя четверть</b><time id="lastQuarterDate">—</time>
+</button>
+</div>
+<div class="lunar-key-grid">
+<div class="lunar-key-card">
+<span>Ближайшее новолуние</span>
+<b id="nextNewMoon">—</b>
+<small id="toNewMoon">—</small>
+</div>
+<div class="lunar-key-card">
+<span>Ближайшее полнолуние</span>
+<b id="nextFullMoon">—</b>
+<small id="toFullMoon">—</small>
+</div>
+<div class="lunar-key-card">
+<span>Возраст Луны</span>
+<b id="moonAge">—</b>
+<small id="moonCycleDay">—</small>
+</div>
+<div class="lunar-key-card">
+<span>Направление цикла</span>
+<b id="moonDirection">—</b>
+<small id="moonDirectionNote">—</small>
+</div>
+</div>
+<div class="lunar-meaning" id="lunarMeaning">
+<span class="eyebrow">ВАЖНО ДЛЯ ПРАКТИКИ</span>
+<p id="lunarMeaningText">—</p>
+</div>
+</article>
+</section>
+<section class="section" id="planner">
+<div class="section-head"><div><div class="eyebrow" id="plannerEyebrow">ВАШИ ПРАКТИКИ</div><h2 id="plannerTitle">Ничего лишнего</h2><p id="plannerText">Название, дата, время и напоминание за час.</p></div><button class="primary" id="addPlan">＋ Добавить</button></div>
+<div class="glass" id="practiceList" style="border-radius:26px;padding:24px"></div>
+</section>
+<footer class="signature"><strong>Цифровой инструмент для планирования<br/>ритуально-обрядовых практик</strong><b>РАЗРАБОТАНО ОРДЕНОМ VERBUM DAEMONIS</b><span class="version-mark">Версия приложения 1.0.4</span></footer>
+</main>
+</div>
+<nav class="mobile-nav"><button data-go="today"><b>◐</b>Сейчас</button><button data-go="hours"><b>♄</b>Часы</button><button data-go="planets"><b>✧</b>Планеты</button><button data-go="moon"><b>☽</b>Луна</button><button data-go="planner"><b>✦</b>План</button></nav>
+<div class="modal" id="planModal"><div class="backdrop" data-close-plan=""></div><form class="dialog glass" id="planForm"><button class="close" data-close-plan="" type="button">×</button><div class="eyebrow">НОВАЯ ПРАКТИКА</div><h2>Выберите время</h2><label>Название<input id="pTitle" placeholder="Например: очищение пространства" required=""/></label><div class="two"><label>Дата<input id="pDate" required="" type="date"/></label><label>Время<input id="pTime" required="" type="time"/></label></div><label>Направление<select id="pType"></select></label><label>Заметка<textarea id="pNote" rows="3"></textarea></label><label style="display:flex;grid-template-columns:auto 1fr;align-items:center"><input checked="" id="pReminder" style="width:auto" type="checkbox"/> Напомнить за 1 час</label><button class="primary" style="width:100%">Сохранить</button></form></div>
+<div class="modal" id="langModal"><div class="backdrop" data-close-lang=""></div><div class="dialog glass"><button class="close" data-close-lang="">×</button><div class="eyebrow" id="langEyebrow">ЯЗЫК ПРИЛОЖЕНИЯ</div><h2 id="langTitle">Выберите язык</h2><div class="lang-grid" id="langGrid"></div></div></div>
+<div class="modal" id="installModal"><div class="backdrop" data-close-install=""></div><div class="dialog glass"><button class="close" data-close-install="">×</button><div class="eyebrow" id="installEyebrow">УСТАНОВКА PWA</div><h2 id="installTitle">Установите LUNARIS</h2><p class="install-lead" id="installLead">Приложение откроется отдельным значком и будет доступно как обычная программа.</p><p id="installText" style="color:#aaa;line-height:1.7"></p><div class="ios-install-steps" hidden="" id="iosInstallSteps"><div><b>1</b><span>Откройте сайт именно в Safari</span></div><div><b>2</b><span>Нажмите значок «Поделиться» ⎋</span></div><div><b>3</b><span>Выберите «На экран Домой»</span></div><div><b>4</b><span>Нажмите «Добавить»</span></div></div><button class="primary install-modal-btn" id="nativeInstall" style="width:100%"><span>↓</span> Установить сейчас</button></div></div>
+<div class="toast" id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
+
+<script>(() => {
+'use strict';
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const SYN=29.530588853, REF=Date.UTC(2000,0,6,18,14);
+const FLAGS={ru:'🇷🇺',uk:'🇺🇦',kk:'🇰🇿',be:'🇧🇾',pl:'🇵🇱',en:'🇬🇧'};
+const LOCALES={ru:'ru-RU',uk:'uk-UA',kk:'kk-KZ',be:'be-BY',pl:'pl-PL',en:'en-GB'};
+const safeStore={get:(k,d='')=>{try{return localStorage.getItem(k)||d}catch{return d}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch{}}};
+const state={lang:safeStore.get('lunarisLang','ru'),lat:52.2297,lon:21.0122,tz:Intl.DateTimeFormat().resolvedOptions().timeZone||'Europe/Warsaw',hours:[],intent:'all',installPrompt:null,selectedPlanet:0,positions:[],sunrise:0,sunset:0,nextSunrise:0};
+
+const L={
+ru:{
+ ui:{live:'ЖИВОЙ РИТУАЛЬНЫЙ НАВИГАТОР',see:'Видеть',power:'время силы',notTable:', а не таблицу',intro:'Выберите намерение — LUNARIS соединит фазу Луны, планетарный час, световой день и местные условия в одно понятное окно для практики.',plan:'＋ Запланировать',install:'Установить LUNARIS',installSub:'На телефон или компьютер',illum:'освещённости',window:'ТЕКУЩЕЕ ОКНО',calc:'расчёт…',moonAlt:'Высота Луны',azimuth:'азимут',hall:'ПЛАНЕТАРНЫЙ ЗАЛ',seven:'Семь традиционных светил',hallText:'Положение в знаках, высота, азимут, традиционные сферы, металлы и основные аспекты.',selected:'ВЫБРАННОЕ СВЕТИЛО',sign:'Знак',longitude:'Долгота',height:'Высота',metal:'Металл',sphere:'Сфера',compass:'РИТУАЛЬНЫЙ КОМПАС',want:'Что вы хотите совершить?',wantText:'После выбора LUNARIS выделит подходящие часы и покажет ближайшее сильное окно.',now:'СЕЙЧАС',suitable:'✓ ПОДХОДИТ',avoid:'× НЕ СООТВЕТСТВУЕТ',planHour:'Запланировать в этот час →',next:'СЛЕДУЮЩЕЕ СИЛЬНОЕ ОКНО',chooseIntent:'Выберите намерение.',planNext:'Запланировать →',wheel:'КРУГ СУТОК · 24 ПЛАНЕТАРНЫХ ЧАСА',moonPath:'ЛУННЫЙ ПУТЬ',four:'Четыре состояния силы',moonPathText:'Не перечень современных советов, а традиционный ритм: сокрытие, прибавление, полнота и убывание.',local:'МЕСТНЫЕ УСЛОВИЯ',waiting:'Ожидание данных',yourLocation:'Ваше местоположение',feels:'Ощущается',wind:'Ветер',humidity:'Влажность',pressure:'Давление',month:'ХОД ЛУННОГО МЕСЯЦА',phaseToPhase:'От фазы к фазе',monthText:'Текущий этап, ближайший переход и четыре ключевые точки лунного месяца.',until:'До следующего перехода',nextNew:'Ближайшее новолуние',nextFull:'Ближайшее полнолуние',age:'Возраст Луны',direction:'Направление цикла',important:'ВАЖНО ДЛЯ ПРАКТИКИ',practices:'ВАШИ ПРАКТИКИ',nothing:'Ничего лишнего',plannerText:'Название, дата, время и напоминание за час.',add:'＋ Добавить',empty:'Пока ничего не запланировано.',footer1:'Цифровой инструмент для планирования',footer2:'ритуально-обрядовых практик',developed:'РАЗРАБОТАНО ОРДЕНОМ VERBUM DAEMONIS',version:'Версия приложения 1.0.4',navNow:'Сейчас',navHours:'Часы',navPlanets:'Планеты',navMoon:'Луна',navPlan:'План',newPractice:'НОВАЯ ПРАКТИКА',chooseTime:'Выберите время',title:'Название',date:'Дата',time:'Время',type:'Направление',note:'Заметка',remind:'Напомнить за 1 час',save:'Сохранить',appLang:'ЯЗЫК ПРИЛОЖЕНИЯ',chooseLang:'Выберите язык',installPwa:'УСТАНОВКА PWA',installTitle:'Установите LUNARIS',installLead:'Приложение откроется отдельным значком и будет доступно как обычная программа.',installNow:'Установить сейчас',forces:'Силы',fits:'Подходит',remaining:'осталось',days:'дн.',hours:'ч.',minutes:'мин.',through:'через',approx:'примерно',lunarDay:'лунный день',growing:'Луна растёт',waning:'Луна убывает',strengthGrows:'сила прибавляется',strengthWanes:'сила идёт на убыль',saved:'Практика сохранена',installed:'LUNARIS установлен'},
+ intents:['Все часы','Защита','Достаток','Согласие','Познание','Сила','Сны','Завершение','Открытие дорог','Жизненная сила','Очищение'],
+ types:['Очищение','Защита','Достаток','Согласие','Познание','Отсечение','Почитание','Другое'],
+ phases:[['Новолуние','Сокрытие света. Молчание, пустота, подготовка и зарождение намерения.','очищение места, молчаливое намерение, подготовка орудий, обеты и начало пути'],['Растущая Луна','Прибавление силы. То, что должно расти, укрепляться и входить в жизнь.','достаток, укрепление защиты, развитие дела, привлечение возможностей'],['Полнолуние','Полнота и явленность. Кульминация, освящение, прорицание и видение.','освящение предметов, прорицание, работа со снами, завершение накопления силы'],['Убывающая Луна','Уход и истончение. Отсечение, изгнание, очищение и завершение.','отсечение связей, избавление, очищение, закрытие и отпускание']],
+ planets:[['Сатурн','Сатурна',['время','предел','земля','предки'],'защита, отсечение, связывание, завершение и поминальные действа','примирение, лёгкие начинания и быстрый рост','свинец','время, предел, земля, предки'],['Юпитер','Юпитера',['власть','достаток','закон','рост'],'достаток, покровительство, статус, расширение и благословение','мелочные, скрытые и разрушительные намерения','олово','закон, власть, достаток, рост'],['Марс','Марса',['огонь','железо','воля','борьба'],'сила, победа, отсечение, защита и преодоление','примирение и мягкие согласительные действия','железо','огонь, воля, борьба, отсечение'],['Солнце','Солнца',['свет','власть','жизнь','ясность'],'освящение, успех, здоровье, истина и авторитет','скрытые, обманные и подчиняющие действия','золото','свет, жизнь, власть, ясность'],['Венера','Венеры',['притяжение','красота','согласие','плодородие'],'любовь, примирение, союз, красота и творчество','жёсткое отсечение и конфликтные действия','медь','притяжение, красота, согласие, плодородие'],['Меркурий','Меркурия',['слово','дорога','знание','обмен'],'обучение, договоры, торговля, гадание и открытие дорог','поспешные клятвы и необдуманные договоры','ртуть','слово, дорога, знание, обмен'],['Луна','Луны',['вода','сны','память','перемена'],'сны, прорицание, очищение, память рода и внутренняя работа','решения, требующие полной устойчивости','серебро','вода, память, сны, перемена']],
+ signs:['Овен','Телец','Близнецы','Рак','Лев','Дева','Весы','Скорпион','Стрелец','Козерог','Водолей','Рыбы'], weather:{0:'Ясно',1:'Преимущественно ясно',2:'Переменная облачность',3:'Пасмурно',45:'Туман',51:'Морось',61:'Дождь',63:'Дождь',65:'Сильный дождь',71:'Снег',80:'Ливень',95:'Гроза'}},
+uk:{ui:{live:'ЖИВИЙ РИТУАЛЬНИЙ НАВІГАТОР',see:'Бачити',power:'час сили',notTable:', а не таблицю',intro:'Оберіть намір — LUNARIS поєднає фазу Місяця, планетарну годину, світловий день і місцеві умови в одне зрозуміле вікно для практики.',plan:'＋ Запланувати',install:'Встановити LUNARIS',installSub:'На телефон або комп’ютер',illum:'освітленості',window:'ПОТОЧНЕ ВІКНО',calc:'обчислення…',moonAlt:'Висота Місяця',azimuth:'азимут',hall:'ПЛАНЕТАРНА ЗАЛА',seven:'Сім традиційних світил',hallText:'Положення у знаках, висота, азимут, традиційні сфери, метали й основні аспекти.',selected:'ВИБРАНЕ СВІТИЛО',sign:'Знак',longitude:'Довгота',height:'Висота',metal:'Метал',sphere:'Сфера',compass:'РИТУАЛЬНИЙ КОМПАС',want:'Що ви хочете здійснити?',wantText:'Після вибору LUNARIS виділить відповідні години та покаже найближче сильне вікно.',now:'ЗАРАЗ',suitable:'✓ ПІДХОДИТЬ',avoid:'× НЕ ВІДПОВІДАЄ',planHour:'Запланувати на цю годину →',next:'НАСТУПНЕ СИЛЬНЕ ВІКНО',chooseIntent:'Оберіть намір.',planNext:'Запланувати →',wheel:'КОЛО ДОБИ · 24 ПЛАНЕТАРНІ ГОДИНИ',moonPath:'МІСЯЧНИЙ ШЛЯХ',four:'Чотири стани сили',moonPathText:'Традиційний ритм: приховування, зростання, повнота й убування.',local:'МІСЦЕВІ УМОВИ',waiting:'Очікування даних',yourLocation:'Ваше місцеположення',feels:'Відчувається',wind:'Вітер',humidity:'Вологість',pressure:'Тиск',month:'ПЕРЕБІГ МІСЯЧНОГО МІСЯЦЯ',phaseToPhase:'Від фази до фази',monthText:'Поточний етап, найближчий перехід і чотири ключові точки місячного місяця.',until:'До наступного переходу',nextNew:'Найближчий молодик',nextFull:'Найближча повня',age:'Вік Місяця',direction:'Напрям циклу',important:'ВАЖЛИВО ДЛЯ ПРАКТИКИ',practices:'ВАШІ ПРАКТИКИ',nothing:'Нічого зайвого',plannerText:'Назва, дата, час і нагадування за годину.',add:'＋ Додати',empty:'Поки нічого не заплановано.',footer1:'Цифровий інструмент для планування',footer2:'ритуально-обрядових практик',developed:'РОЗРОБЛЕНО ОРДЕНОМ VERBUM DAEMONIS',version:'Версія застосунку 1.0.4',navNow:'Зараз',navHours:'Години',navPlanets:'Планети',navMoon:'Місяць',navPlan:'План',newPractice:'НОВА ПРАКТИКА',chooseTime:'Оберіть час',title:'Назва',date:'Дата',time:'Час',type:'Напрям',note:'Нотатка',remind:'Нагадати за 1 годину',save:'Зберегти',appLang:'МОВА ЗАСТОСУНКУ',chooseLang:'Оберіть мову',installPwa:'ВСТАНОВЛЕННЯ PWA',installTitle:'Встановіть LUNARIS',installLead:'Застосунок відкриватиметься окремою іконкою та працюватиме як звичайна програма.',installNow:'Встановити зараз',forces:'Сили',fits:'Підходить',remaining:'залишилося',days:'дн.',hours:'год.',minutes:'хв.',through:'через',approx:'приблизно',lunarDay:'місячний день',growing:'Місяць росте',waning:'Місяць спадає',strengthGrows:'сила прибуває',strengthWanes:'сила спадає',saved:'Практику збережено',installed:'LUNARIS встановлено'},intents:['Усі години','Захист','Достаток','Злагода','Пізнання','Сила','Сни','Завершення','Відкриття доріг','Життєва сила','Очищення'],types:['Очищення','Захист','Достаток','Злагода','Пізнання','Відсікання','Вшанування','Інше'],phases:[['Молодик','Приховування світла. Тиша, порожнеча, підготовка й зародження наміру.','очищення місця, мовчазний намір, підготовка знарядь, обітниці та початок шляху'],['Зростаючий Місяць','Прибування сили. Те, що має рости, зміцнюватися й входити в життя.','достаток, зміцнення захисту, розвиток справи, залучення можливостей'],['Повня','Повнота і явленість. Кульмінація, освячення, віщування та бачення.','освячення предметів, віщування, робота зі снами, завершення накопичення сили'],['Спадний Місяць','Відхід та стоншення. Відсікання, вигнання, очищення й завершення.','відсікання зв’язків, позбавлення, очищення, закриття й відпускання']],planets:[['Сатурн','Сатурна',['час','межа','земля','предки'],'захист, відсікання, зв’язування, завершення та поминальні дії','примирення, легкі починання і швидке зростання','свинець','час, межа, земля, предки'],['Юпітер','Юпітера',['влада','достаток','закон','зростання'],'достаток, покровительство, статус, розширення та благословення','дріб’язкові, приховані й руйнівні наміри','олово','закон, влада, достаток, зростання'],['Марс','Марса',['вогонь','залізо','воля','боротьба'],'сила, перемога, відсікання, захист і подолання','примирення та м’які узгоджувальні дії','залізо','вогонь, воля, боротьба, відсікання'],['Сонце','Сонця',['світло','влада','життя','ясність'],'освячення, успіх, здоров’я, істина й авторитет','приховані, оманливі та підпорядковувальні дії','золото','світло, життя, влада, ясність'],['Венера','Венери',['притягання','краса','згода','родючість'],'любов, примирення, союз, краса й творчість','жорстке відсікання та конфліктні дії','мідь','притягання, краса, згода, родючість'],['Меркурій','Меркурія',['слово','дорога','знання','обмін'],'навчання, договори, торгівля, віщування й відкриття доріг','поспішні клятви та необдумані договори','ртуть','слово, дорога, знання, обмін'],['Місяць','Місяця',['вода','сни','пам’ять','зміна'],'сни, віщування, очищення, пам’ять роду та внутрішня робота','рішення, що потребують повної стійкості','срібло','вода, пам’ять, сни, зміна']],signs:['Овен','Телець','Близнюки','Рак','Лев','Діва','Терези','Скорпіон','Стрілець','Козоріг','Водолій','Риби'],weather:{0:'Ясно',1:'Переважно ясно',2:'Мінлива хмарність',3:'Похмуро',45:'Туман',51:'Мряка',61:'Дощ',63:'Дощ',65:'Сильний дощ',71:'Сніг',80:'Злива',95:'Гроза'}},
+en:{ui:{live:'LIVE RITUAL NAVIGATOR',see:'See',power:'the time of power',notTable:', not a table',intro:'Choose an intention — LUNARIS combines the Moon phase, planetary hour, daylight and local conditions into one clear practice window.',plan:'＋ Schedule',install:'Install LUNARIS',installSub:'On phone or computer',illum:'illuminated',window:'CURRENT WINDOW',calc:'calculating…',moonAlt:'Moon altitude',azimuth:'azimuth',hall:'PLANETARY HALL',seven:'Seven traditional luminaries',hallText:'Positions in signs, altitude, azimuth, traditional spheres, metals and major aspects.',selected:'SELECTED LUMINARY',sign:'Sign',longitude:'Longitude',height:'Altitude',metal:'Metal',sphere:'Sphere',compass:'RITUAL COMPASS',want:'What do you want to perform?',wantText:'LUNARIS highlights suitable hours and shows the nearest strong window.',now:'NOW',suitable:'✓ SUITABLE',avoid:'× NOT SUITABLE',planHour:'Schedule for this hour →',next:'NEXT STRONG WINDOW',chooseIntent:'Choose an intention.',planNext:'Schedule →',wheel:'DAILY CIRCLE · 24 PLANETARY HOURS',moonPath:'LUNAR PATH',four:'Four states of power',moonPathText:'Traditional rhythm: concealment, increase, fullness and waning.',local:'LOCAL CONDITIONS',waiting:'Waiting for data',yourLocation:'Your location',feels:'Feels like',wind:'Wind',humidity:'Humidity',pressure:'Pressure',month:'LUNAR MONTH COURSE',phaseToPhase:'From phase to phase',monthText:'Current stage, nearest transition and four key points of the lunar month.',until:'Until the next transition',nextNew:'Next New Moon',nextFull:'Next Full Moon',age:'Moon age',direction:'Cycle direction',important:'IMPORTANT FOR PRACTICE',practices:'YOUR PRACTICES',nothing:'Nothing unnecessary',plannerText:'Title, date, time and a reminder one hour before.',add:'＋ Add',empty:'Nothing has been scheduled yet.',footer1:'Digital tool for planning',footer2:'ritual and ceremonial practices',developed:'DEVELOPED BY THE ORDER VERBUM DAEMONIS',version:'Application version 1.0.4',navNow:'Now',navHours:'Hours',navPlanets:'Planets',navMoon:'Moon',navPlan:'Plan',newPractice:'NEW PRACTICE',chooseTime:'Choose a time',title:'Title',date:'Date',time:'Time',type:'Direction',note:'Note',remind:'Remind one hour before',save:'Save',appLang:'APPLICATION LANGUAGE',chooseLang:'Choose a language',installPwa:'PWA INSTALLATION',installTitle:'Install LUNARIS',installLead:'The app opens from its own icon and works like a regular program.',installNow:'Install now',forces:'Forces',fits:'Suitable',remaining:'remaining',days:'d',hours:'h',minutes:'min',through:'in',approx:'approximately',lunarDay:'lunar day',growing:'Moon is waxing',waning:'Moon is waning',strengthGrows:'power is increasing',strengthWanes:'power is decreasing',saved:'Practice saved',installed:'LUNARIS installed'},intents:['All hours','Protection','Prosperity','Harmony','Knowledge','Strength','Dreams','Completion','Opening roads','Vital force','Cleansing'],types:['Cleansing','Protection','Prosperity','Harmony','Knowledge','Severing','Veneration','Other'],phases:[['New Moon','Concealment of light. Silence, emptiness, preparation and the birth of intention.','cleansing the place, silent intention, preparing tools, vows and beginning the path'],['Waxing Moon','Power increases. What should grow, strengthen and enter life.','prosperity, strengthening protection, developing work, attracting opportunities'],['Full Moon','Fullness and manifestation. Culmination, consecration, divination and vision.','consecrating objects, divination, dream work, completing the accumulation of power'],['Waning Moon','Departure and thinning. Severing, banishing, cleansing and completion.','severing ties, release, cleansing, closure and letting go']],planets:[['Saturn','Saturn',['time','boundary','earth','ancestors'],'protection, severing, binding, completion and memorial rites','reconciliation, light beginnings and rapid growth','lead','time, boundary, earth, ancestors'],['Jupiter','Jupiter',['authority','prosperity','law','growth'],'prosperity, patronage, status, expansion and blessing','petty, hidden and destructive intentions','tin','law, authority, prosperity, growth'],['Mars','Mars',['fire','iron','will','struggle'],'strength, victory, severing, protection and overcoming','reconciliation and gentle conciliatory work','iron','fire, will, struggle, severing'],['Sun','the Sun',['light','authority','life','clarity'],'consecration, success, health, truth and authority','hidden, deceptive and subordinating actions','gold','light, life, authority, clarity'],['Venus','Venus',['attraction','beauty','harmony','fertility'],'love, reconciliation, union, beauty and creativity','harsh severing and conflict work','copper','attraction, beauty, harmony, fertility'],['Mercury','Mercury',['word','road','knowledge','exchange'],'learning, agreements, trade, divination and opening roads','hasty oaths and poorly considered agreements','mercury','word, road, knowledge, exchange'],['Moon','the Moon',['water','dreams','memory','change'],'dreams, divination, cleansing, ancestral memory and inner work','decisions requiring complete stability','silver','water, memory, dreams, change']],signs:['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'],weather:{0:'Clear',1:'Mostly clear',2:'Partly cloudy',3:'Overcast',45:'Fog',51:'Drizzle',61:'Rain',63:'Rain',65:'Heavy rain',71:'Snow',80:'Showers',95:'Thunderstorm'}},
+pl:{ui:{live:'ŻYWY NAWIGATOR RYTUALNY',see:'Zobacz',power:'czas mocy',notTable:', nie tabelę',intro:'Wybierz intencję — LUNARIS połączy fazę Księżyca, godzinę planetarną, długość dnia i lokalne warunki w jedno czytelne okno praktyki.',plan:'＋ Zaplanuj',install:'Zainstaluj LUNARIS',installSub:'Na telefonie lub komputerze',illum:'oświetlenia',window:'BIEŻĄCE OKNO',calc:'obliczanie…',moonAlt:'Wysokość Księżyca',azimuth:'azymut',hall:'SALA PLANETARNA',seven:'Siedem tradycyjnych świateł',hallText:'Położenie w znakach, wysokość, azymut, tradycyjne sfery, metale i główne aspekty.',selected:'WYBRANE ŚWIATŁO',sign:'Znak',longitude:'Długość',height:'Wysokość',metal:'Metal',sphere:'Sfera',compass:'KOMPAS RYTUALNY',want:'Co chcesz wykonać?',wantText:'LUNARIS wyróżni odpowiednie godziny i pokaże najbliższe silne okno.',now:'TERAZ',suitable:'✓ ODPOWIEDNIE',avoid:'× NIEODPOWIEDNIE',planHour:'Zaplanuj na tę godzinę →',next:'NAJBLIŻSZE SILNE OKNO',chooseIntent:'Wybierz intencję.',planNext:'Zaplanuj →',wheel:'KRĄG DOBY · 24 GODZINY PLANETARNE',moonPath:'DROGA KSIĘŻYCA',four:'Cztery stany mocy',moonPathText:'Tradycyjny rytm: ukrycie, wzrost, pełnia i ubywanie.',local:'WARUNKI LOKALNE',waiting:'Oczekiwanie na dane',yourLocation:'Twoja lokalizacja',feels:'Odczuwalna',wind:'Wiatr',humidity:'Wilgotność',pressure:'Ciśnienie',month:'PRZEBIEG MIESIĄCA KSIĘŻYCOWEGO',phaseToPhase:'Od fazy do fazy',monthText:'Bieżący etap, najbliższe przejście i cztery kluczowe punkty miesiąca księżycowego.',until:'Do następnego przejścia',nextNew:'Najbliższy nów',nextFull:'Najbliższa pełnia',age:'Wiek Księżyca',direction:'Kierunek cyklu',important:'WAŻNE DLA PRAKTYKI',practices:'TWOJE PRAKTYKI',nothing:'Bez zbędnych elementów',plannerText:'Nazwa, data, godzina i przypomnienie godzinę wcześniej.',add:'＋ Dodaj',empty:'Nie zaplanowano jeszcze żadnej praktyki.',footer1:'Cyfrowe narzędzie do planowania',footer2:'praktyk rytualnych i obrzędowych',developed:'OPRACOWANO PRZEZ ZAKON VERBUM DAEMONIS',version:'Wersja aplikacji 1.0.4',navNow:'Teraz',navHours:'Godziny',navPlanets:'Planety',navMoon:'Księżyc',navPlan:'Plan',newPractice:'NOWA PRAKTYKA',chooseTime:'Wybierz czas',title:'Nazwa',date:'Data',time:'Godzina',type:'Kierunek',note:'Notatka',remind:'Przypomnij godzinę wcześniej',save:'Zapisz',appLang:'JĘZYK APLIKACJI',chooseLang:'Wybierz język',installPwa:'INSTALACJA PWA',installTitle:'Zainstaluj LUNARIS',installLead:'Aplikacja otworzy się z osobnej ikony i będzie działać jak zwykły program.',installNow:'Zainstaluj teraz',forces:'Siły',fits:'Odpowiednie',remaining:'pozostało',days:'d',hours:'godz.',minutes:'min',through:'za',approx:'około',lunarDay:'dzień księżycowy',growing:'Księżyc rośnie',waning:'Księżyc ubywa',strengthGrows:'siła wzrasta',strengthWanes:'siła maleje',saved:'Praktyka została zapisana',installed:'LUNARIS zainstalowano'},intents:['Wszystkie godziny','Ochrona','Dobrobyt','Harmonia','Poznanie','Siła','Sny','Zakończenie','Otwarcie dróg','Siła życiowa','Oczyszczenie'],types:['Oczyszczenie','Ochrona','Dobrobyt','Harmonia','Poznanie','Odcięcie','Cześć','Inne'],phases:[['Nów','Ukrycie światła. Cisza, pustka, przygotowanie i narodziny intencji.','oczyszczenie miejsca, cicha intencja, przygotowanie narzędzi, śluby i początek drogi'],['Księżyc rosnący','Przyrost siły. To, co ma rosnąć, wzmacniać się i wchodzić w życie.','dobrobyt, wzmocnienie ochrony, rozwój sprawy, przyciąganie możliwości'],['Pełnia','Pełnia i ujawnienie. Kulminacja, poświęcenie, wróżba i widzenie.','poświęcenie przedmiotów, wróżba, praca ze snami, zakończenie gromadzenia siły'],['Księżyc ubywający','Odejście i ścieńczenie. Odcięcie, wygnanie, oczyszczenie i zakończenie.','odcięcie więzi, uwolnienie, oczyszczenie, zamknięcie i puszczenie']],planets:[['Saturn','Saturna',['czas','granica','ziemia','przodkowie'],'ochrona, odcięcie, wiązanie, zakończenie i obrzędy pamięci','pojednanie, lekkie początki i szybki wzrost','ołów','czas, granica, ziemia, przodkowie'],['Jowisz','Jowisza',['władza','dobrobyt','prawo','wzrost'],'dobrobyt, opieka, status, rozszerzenie i błogosławieństwo','drobne, ukryte i niszczące intencje','cyna','prawo, władza, dobrobyt, wzrost'],['Mars','Marsa',['ogień','żelazo','wola','walka'],'siła, zwycięstwo, odcięcie, ochrona i pokonanie','pojednanie i łagodne działania ugodowe','żelazo','ogień, wola, walka, odcięcie'],['Słońce','Słońca',['światło','władza','życie','jasność'],'poświęcenie, sukces, zdrowie, prawda i autorytet','ukryte, zwodnicze i podporządkowujące działania','złoto','światło, życie, władza, jasność'],['Wenus','Wenus',['przyciąganie','piękno','zgoda','płodność'],'miłość, pojednanie, związek, piękno i twórczość','twarde odcięcie i działania konfliktowe','miedź','przyciąganie, piękno, zgoda, płodność'],['Merkury','Merkurego',['słowo','droga','wiedza','wymiana'],'nauka, umowy, handel, wróżba i otwieranie dróg','pochopne przysięgi i nieprzemyślane umowy','rtęć','słowo, droga, wiedza, wymiana'],['Księżyc','Księżyca',['woda','sny','pamięć','zmiana'],'sny, wróżba, oczyszczenie, pamięć rodu i praca wewnętrzna','decyzje wymagające pełnej stabilności','srebro','woda, pamięć, sny, zmiana']],signs:['Baran','Byk','Bliźnięta','Rak','Lew','Panna','Waga','Skorpion','Strzelec','Koziorożec','Wodnik','Ryby'],weather:{0:'Bezchmurnie',1:'Przeważnie bezchmurnie',2:'Częściowe zachmurzenie',3:'Pochmurno',45:'Mgła',51:'Mżawka',61:'Deszcz',63:'Deszcz',65:'Silny deszcz',71:'Śnieg',80:'Przelotny deszcz',95:'Burza'}},
+be:{ui:{live:'ЖЫВЫ РЫТУАЛЬНЫ НАВІГАТАР',see:'Бачыць',power:'час сілы',notTable:', а не табліцу',intro:'Абярыце намер — LUNARIS злучыць фазу Месяца, планетарную гадзіну, светлавы дзень і мясцовыя ўмовы ў адно зразумелае акно для практыкі.',plan:'＋ Запланаваць',install:'Усталяваць LUNARIS',installSub:'На тэлефон або камп’ютар',illum:'асветленасці',window:'БЯГУЧАЕ АКНО',calc:'вылічэнне…',moonAlt:'Вышыня Месяца',azimuth:'азімут',hall:'ПЛАНЕТАРНАЯ ЗАЛА',seven:'Сем традыцыйных свяцілаў',hallText:'Становішча ў знаках, вышыня, азімут, традыцыйныя сферы, металы і асноўныя аспекты.',selected:'ВЫБРАНАЕ СВЯЦІЛА',sign:'Знак',longitude:'Даўгата',height:'Вышыня',metal:'Метал',sphere:'Сфера',compass:'РЫТУАЛЬНЫ КОМПАС',want:'Што вы хочаце здзейсніць?',wantText:'LUNARIS вылучыць адпаведныя гадзіны і пакажа найбліжэйшае моцнае акно.',now:'ЦЯПЕР',suitable:'✓ ПАДЫХОДЗІЦЬ',avoid:'× НЕ АДПАВЯДАЕ',planHour:'Запланаваць на гэтую гадзіну →',next:'НАСТУПНАЕ МОЦНАЕ АКНО',chooseIntent:'Абярыце намер.',planNext:'Запланаваць →',wheel:'КРУГ СУТАК · 24 ПЛАНЕТАРНЫЯ ГАДЗІНЫ',moonPath:'МЕСЯЦОВЫ ШЛЯХ',four:'Чатыры станы сілы',moonPathText:'Традыцыйны рытм: утойванне, прыбаўленне, паўната і змяншэнне.',local:'МЯСЦОВЫЯ ЎМОВЫ',waiting:'Чаканне даных',yourLocation:'Ваша месцазнаходжанне',feels:'Адчуваецца',wind:'Вецер',humidity:'Вільготнасць',pressure:'Ціск',month:'ХОД МЕСЯЦОВАГА МЕСЯЦА',phaseToPhase:'Ад фазы да фазы',monthText:'Бягучы этап, найбліжэйшы пераход і чатыры ключавыя кропкі месяца.',until:'Да наступнага пераходу',nextNew:'Найбліжэйшы маладзік',nextFull:'Найбліжэйшая поўня',age:'Узрост Месяца',direction:'Кірунак цыклу',important:'ВАЖНА ДЛЯ ПРАКТЫКІ',practices:'ВАШЫ ПРАКТЫКІ',nothing:'Нічога лішняга',plannerText:'Назва, дата, час і напамін за гадзіну.',add:'＋ Дадаць',empty:'Пакуль нічога не запланавана.',footer1:'Лічбавы інструмент для планавання',footer2:'рытуальна-абрадавых практык',developed:'РАСПРАЦАВАНА ОРДЭНАМ VERBUM DAEMONIS',version:'Версія прыкладання 1.0.4',navNow:'Цяпер',navHours:'Гадзіны',navPlanets:'Планеты',navMoon:'Месяц',navPlan:'План',newPractice:'НОВАЯ ПРАКТЫКА',chooseTime:'Абярыце час',title:'Назва',date:'Дата',time:'Час',type:'Напрамак',note:'Нататка',remind:'Нагадаць за 1 гадзіну',save:'Захаваць',appLang:'МОВА ПРЫКЛАДАННЯ',chooseLang:'Абярыце мову',installPwa:'УСТАЛЯВАННЕ PWA',installTitle:'Усталюйце LUNARIS',installLead:'Прыкладанне адкрыецца асобным значком і будзе працаваць як звычайная праграма.',installNow:'Усталяваць зараз',forces:'Сілы',fits:'Падыходзіць',remaining:'засталося',days:'дз.',hours:'гадз.',minutes:'хв.',through:'праз',approx:'прыкладна',lunarDay:'месяцовы дзень',growing:'Месяц расце',waning:'Месяц змяншаецца',strengthGrows:'сіла прыбывае',strengthWanes:'сіла змяншаецца',saved:'Практыка захавана',installed:'LUNARIS усталяваны'},intents:['Усе гадзіны','Абарона','Дастатак','Згода','Пазнанне','Сіла','Сны','Завяршэнне','Адкрыццё дарог','Жыццёвая сіла','Ачышчэнне'],types:['Ачышчэнне','Абарона','Дастатак','Згода','Пазнанне','Адсячэнне','Ушанаванне','Іншае'],phases:[['Маладзік','Утойванне святла. Цішыня, пустэча, падрыхтоўка і нараджэнне намеру.','ачышчэнне месца, маўклівы намер, падрыхтоўка прылад, абяцанні і пачатак шляху'],['Месяц расце','Прыбаўленне сілы. Тое, што павінна расці, мацнець і ўваходзіць у жыццё.','дастатак, умацаванне абароны, развіццё справы, прыцягненне магчымасцяў'],['Поўня','Паўната і выяўленасць. Кульмінацыя, асвячэнне, варажба і бачанне.','асвячэнне прадметаў, варажба, праца са снамі, завяршэнне назапашвання сілы'],['Месяц змяншаецца','Адыход і патанчэнне. Адсячэнне, выгнанне, ачышчэнне і завяршэнне.','адсячэнне сувязяў, вызваленне, ачышчэнне, закрыццё і адпусканне']],planets:[['Сатурн','Сатурна',['час','мяжа','зямля','продкі'],'абарона, адсячэнне, звязванне, завяршэнне і памінальныя дзеянні','прымірэнне, лёгкія пачынанні і хуткі рост','свінец','час, мяжа, зямля, продкі'],['Юпітэр','Юпітэра',['улада','дастатак','закон','рост'],'дастатак, заступніцтва, статус, пашырэнне і дабраславенне','дробязныя, схаваныя і разбуральныя намеры','волава','закон, улада, дастатак, рост'],['Марс','Марса',['агонь','жалеза','воля','барацьба'],'сіла, перамога, адсячэнне, абарона і пераадоленне','прымірэнне і мяккія пагаджальныя дзеянні','жалеза','агонь, воля, барацьба, адсячэнне'],['Сонца','Сонца',['святло','ўлада','жыццё','яснасць'],'асвячэнне, поспех, здароўе, ісціна і аўтарытэт','схаваныя, падманныя і падпарадкавальныя дзеянні','золата','святло, жыццё, улада, яснасць'],['Венера','Венеры',['прыцягненне','прыгажосць','згода','урадлівасць'],'каханне, прымірэнне, саюз, прыгажосць і творчасць','жорсткае адсячэнне і канфліктныя дзеянні','медзь','прыцягненне, прыгажосць, згода, урадлівасць'],['Меркурый','Меркурыя',['слова','дарога','веды','абмен'],'навучанне, дамовы, гандаль, варажба і адкрыццё дарог','паспешныя клятвы і неабдуманыя дамовы','ртуць','слова, дарога, веды, абмен'],['Месяц','Месяца',['вада','сны','памяць','змена'],'сны, варажба, ачышчэнне, памяць роду і ўнутраная праца','рашэнні, якія патрабуюць поўнай устойлівасці','срэбра','вада, памяць, сны, змена']],signs:['Авен','Цялец','Блізняты','Рак','Леў','Дзева','Шалі','Скарпіён','Стралец','Казярог','Вадалей','Рыбы'],weather:{0:'Ясна',1:'Пераважна ясна',2:'Пераменная воблачнасць',3:'Пахмурна',45:'Туман',51:'Імжа',61:'Дождж',63:'Дождж',65:'Моцны дождж',71:'Снег',80:'Лівень',95:'Навальніца'}},
+kk:{ui:{live:'ТІРІ РӘСІМДІК БАҒДАРЛАҒЫШ',see:'Көріңіз',power:'күш уақытын',notTable:', кестені емес',intro:'Ниетіңізді таңдаңыз — LUNARIS Ай фазасын, планеталық сағатты, күн жарығын және жергілікті жағдайды бір түсінікті терезеге біріктіреді.',plan:'＋ Жоспарлау',install:'LUNARIS орнату',installSub:'Телефонға немесе компьютерге',illum:'жарықтануы',window:'АҒЫМДАҒЫ ТЕРЕЗЕ',calc:'есептеу…',moonAlt:'Айдың биіктігі',azimuth:'азимут',hall:'ПЛАНЕТАЛАР ЗАЛЫ',seven:'Жеті дәстүрлі шырақ',hallText:'Белгілердегі орны, биіктігі, азимуты, дәстүрлі салалары, металдары және негізгі аспектілері.',selected:'ТАҢДАЛҒАН ШЫРАҚ',sign:'Белгі',longitude:'Бойлық',height:'Биіктік',metal:'Металл',sphere:'Сала',compass:'РӘСІМДІК КОМПАС',want:'Не жасағыңыз келеді?',wantText:'LUNARIS қолайлы сағаттарды белгілеп, ең жақын қуатты уақытты көрсетеді.',now:'ҚАЗІР',suitable:'✓ ҚОЛАЙЛЫ',avoid:'× СӘЙКЕС ЕМЕС',planHour:'Осы сағатқа жоспарлау →',next:'КЕЛЕСІ ҚУАТТЫ УАҚЫТ',chooseIntent:'Ниетті таңдаңыз.',planNext:'Жоспарлау →',wheel:'ТӘУЛІК ШЕҢБЕРІ · 24 ПЛАНЕТАЛЫҚ САҒАТ',moonPath:'АЙ ЖОЛЫ',four:'Күштің төрт күйі',moonPathText:'Дәстүрлі ырғақ: жасырыну, өсу, толу және кему.',local:'ЖЕРГІЛІКТІ ЖАҒДАЙ',waiting:'Деректер күтілуде',yourLocation:'Сіздің орналасқан жеріңіз',feels:'Сезіледі',wind:'Жел',humidity:'Ылғалдылық',pressure:'Қысым',month:'АЙ АЙЫНЫҢ ЖҮРІСІ',phaseToPhase:'Фазадан фазаға',monthText:'Ағымдағы кезең, жақын ауысу және ай айының төрт негізгі нүктесі.',until:'Келесі ауысуға дейін',nextNew:'Келесі жаңа ай',nextFull:'Келесі толған ай',age:'Айдың жасы',direction:'Цикл бағыты',important:'ТӘЖІРИБЕ ҮШІН МАҢЫЗДЫ',practices:'СІЗДІҢ ТӘЖІРИБЕЛЕРІҢІЗ',nothing:'Артық ештеңе жоқ',plannerText:'Атауы, күні, уақыты және бір сағат бұрын еске салу.',add:'＋ Қосу',empty:'Әзірге ештеңе жоспарланбаған.',footer1:'Жоспарлауға арналған цифрлық құрал',footer2:'рәсімдік-ғұрыптық тәжірибелер',developed:'VERBUM DAEMONIS ОРДЕНІ ӘЗІРЛЕГЕН',version:'Қолданба нұсқасы 1.0.4',navNow:'Қазір',navHours:'Сағаттар',navPlanets:'Планеталар',navMoon:'Ай',navPlan:'Жоспар',newPractice:'ЖАҢА ТӘЖІРИБЕ',chooseTime:'Уақытты таңдаңыз',title:'Атауы',date:'Күні',time:'Уақыты',type:'Бағыт',note:'Ескертпе',remind:'1 сағат бұрын еске салу',save:'Сақтау',appLang:'ҚОЛДАНБА ТІЛІ',chooseLang:'Тілді таңдаңыз',installPwa:'PWA ОРНАТУ',installTitle:'LUNARIS орнатыңыз',installLead:'Қолданба жеке белгішемен ашылып, кәдімгі бағдарлама сияқты жұмыс істейді.',installNow:'Қазір орнату',forces:'Күштер',fits:'Қолайлы',remaining:'қалды',days:'күн',hours:'сағ.',minutes:'мин.',through:'кейін',approx:'шамамен',lunarDay:'ай күні',growing:'Ай өсіп келеді',waning:'Ай кеміп келеді',strengthGrows:'күш артуда',strengthWanes:'күш азаюда',saved:'Тәжірибе сақталды',installed:'LUNARIS орнатылды'},intents:['Барлық сағат','Қорғаныс','Береке','Үйлесім','Таным','Күш','Түстер','Аяқтау','Жол ашу','Өмір күші','Тазарту'],types:['Тазарту','Қорғаныс','Береке','Үйлесім','Таным','Кесу','Құрметтеу','Басқа'],phases:[['Жаңа ай','Жарықтың жасырынуы. Тыныштық, бос кеңістік, дайындық және ниеттің тууы.','орынды тазарту, үнсіз ниет, құралдарды дайындау, серт және жолдың басталуы'],['Өсіп келе жатқан Ай','Күш артады. Өсуі, нығаюы және өмірге енуі тиіс нәрсе.','береке, қорғанысты нығайту, істі дамыту, мүмкіндіктерді тарту'],['Толған ай','Толықтық және көріну. Шарықтау, қасиеттеу, болжау және көру.','заттарды қасиеттеу, болжау, түстермен жұмыс, күш жинауды аяқтау'],['Кеміп келе жатқан Ай','Кету және жұқару. Кесу, қуу, тазарту және аяқтау.','байланыстарды кесу, босату, тазарту, жабу және жіберу']],planets:[['Сатурн','Сатурн',['уақыт','шек','жер','ата-баба'],'қорғаныс, кесу, байланыстыру, аяқтау және еске алу әрекеттері','татуласу, жеңіл бастамалар және жылдам өсу','қорғасын','уақыт, шек, жер, ата-баба'],['Юпитер','Юпитер',['билік','береке','заң','өсу'],'береке, қамқорлық, мәртебе, кеңею және бата','ұсақ, жасырын және жойқын ниеттер','қалайы','заң, билік, береке, өсу'],['Марс','Марс',['от','темір','ерік','күрес'],'күш, жеңіс, кесу, қорғаныс және еңсеру','татуласу және жұмсақ келісім әрекеттері','темір','от, ерік, күрес, кесу'],['Күн','Күн',['жарық','билік','өмір','айқындық'],'қасиеттеу, табыс, денсаулық, ақиқат және бедел','жасырын, алдамшы және бағындыру әрекеттері','алтын','жарық, өмір, билік, айқындық'],['Шолпан','Шолпан',['тарту','сұлулық','келісім','құнарлылық'],'махаббат, татуласу, одақ, сұлулық және шығармашылық','қатаң кесу және қақтығыс әрекеттері','мыс','тарту, сұлулық, келісім, құнарлылық'],['Меркурий','Меркурий',['сөз','жол','білім','алмасу'],'оқу, келісімдер, сауда, болжау және жол ашу','асығыс анттар және ойланбаған келісімдер','сынап','сөз, жол, білім, алмасу'],['Ай','Ай',['су','түстер','жады','өзгеріс'],'түстер, болжау, тазарту, ата-баба жады және ішкі жұмыс','толық тұрақтылықты қажет ететін шешімдер','күміс','су, жады, түстер, өзгеріс']],signs:['Тоқты','Торпақ','Егіздер','Шаян','Арыстан','Бикеш','Таразы','Сарышаян','Мерген','Тауешкі','Суқұйғыш','Балықтар'],weather:{0:'Ашық',1:'Көбіне ашық',2:'Ала бұлтты',3:'Бұлтты',45:'Тұман',51:'Сіркіреме',61:'Жаңбыр',63:'Жаңбыр',65:'Қатты жаңбыр',71:'Қар',80:'Нөсер',95:'Найзағай'}}};
+
+const PLANET_META=[
+ {seal:'♄',body:'Saturn',intent:['protection','ending']},{seal:'♃',body:'Jupiter',intent:['wealth','success']},{seal:'♂',body:'Mars',intent:['strength','protection','ending']},{seal:'☉',body:'Sun',intent:['success','healing']},{seal:'♀',body:'Venus',intent:['love']},{seal:'☿',body:'Mercury',intent:['knowledge','roads']},{seal:'☽',body:'Moon',intent:['dreams','cleansing']}];
+const INTENT_KEYS=['all','protection','wealth','love','knowledge','strength','dreams','ending','roads','healing','cleansing'];
+const DAY_RULERS=[3,6,2,5,1,4,0], ORDER=[0,1,2,3,4,5,6];
+const positions=[[50,13],[77,28],[86,56],[66,79],[35,83],[14,58],[24,29]];
+const langNames=[['ru','🇷🇺','Русский'],['uk','🇺🇦','Українська'],['kk','🇰🇿','Қазақша'],['be','🇧🇾','Беларуская'],['pl','🇵🇱','Polski'],['en','🇬🇧','English']];
+function T(){return L[state.lang]||L.ru} function U(){return T().ui}
+function format(d,o){return new Intl.DateTimeFormat(LOCALES[state.lang],{timeZone:state.tz,...o}).format(new Date(d))}
+function setText(id,v){const e=$('#'+id);if(e)e.textContent=v} function setHTML(id,v){const e=$('#'+id);if(e)e.innerHTML=v}
+function toast(v){const e=$('#toast');if(!e)return;e.textContent=v;e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),2500)}
+function moonInfo(d=new Date()){const age=((((d-REF)/864e5)%SYN)+SYN)%SYN,phase=age/SYN,illum=(1-Math.cos(2*Math.PI*phase))/2;let idx=phase<.08||phase>.92?0:phase<.5?1:phase<.58?2:3;return{age,phase,illum,idx}}
+function lunarEvent(fraction,next=true,now=new Date()){const c=(now-REF)/(SYN*864e5);let i=next?Math.floor(c-fraction)+1:Math.floor(c-fraction);let d=new Date(REF+(i+fraction)*SYN*864e5);if(next&&d<=now)d=new Date(+d+SYN*864e5);return d}
+function dur(ms){ms=Math.max(0,ms);return`${Math.floor(ms/864e5)} ${U().days} ${Math.floor(ms/36e5)%24} ${U().hours} ${Math.floor(ms/6e4)%60} ${U().minutes}`}
+function applyStatic(){const u=U();document.documentElement.lang=state.lang;setText('heroEyebrow',u.live);setHTML('heroTitle',`${u.see} <em>${u.power}</em>${u.notTable}`);setText('heroText',u.intro);setText('quickPlan',u.plan);const cta=$('.install-cta');if(cta){cta.querySelector('b').textContent=u.install;cta.querySelector('small').textContent=u.installSub}setText('hoursEyebrow',u.compass);setText('hoursTitle',u.want);setText('hoursText',u.wantText);setText('nextEyebrow',u.next);setText('wheelEyebrow',u.wheel);setText('moonEyebrow',u.moonPath);setText('moonTitle',u.four);setText('moonText',u.moonPathText);setText('plannerEyebrow',u.practices);setText('plannerTitle',u.nothing);setText('plannerText',u.plannerText);setText('addPlan',u.add);setText('langEyebrow',u.appLang);setText('langTitle',u.chooseLang);setText('installEyebrow',u.installPwa);setText('installTitle',u.installTitle);setText('installLead',u.installLead);setText('nativeInstall',u.installNow);setText('planCurrent',u.planHour);setText('planNext',u.planNext);
+ const staticPairs=[['.planet-hall + *',null]];
+ const exact={
+ 'ПЛАНЕТАРНЫЙ ЗАЛ':u.hall,'Семь традиционных светил':u.seven,'Положение в знаках, высота, азимут, традиционные сферы, металлы и основные аспекты.':u.hallText,'ВЫБРАННОЕ СВЕТИЛО':u.selected,'Знак':u.sign,'Долгота':u.longitude,'Высота':u.height,'Азимут':u.azimuth,'Металл':u.metal,'Сфера':u.sphere,'СЕЙЧАС':u.now,'✓ ПОДХОДИТ':u.suitable,'× НЕ СООТВЕТСТВУЕТ':u.avoid,'МЕСТНЫЕ УСЛОВИЯ':u.local,'Ожидание данных':u.waiting,'Ваше местоположение':u.yourLocation,'Ощущается':u.feels,'Ветер':u.wind,'Влажность':u.humidity,'Давление':u.pressure,'ХОД ЛУННОГО МЕСЯЦА':u.month,'От фазы к фазе':u.phaseToPhase,'Текущий этап, ближайший переход и четыре ключевые точки лунного месяца.':u.monthText,'До следующего перехода':u.until,'Ближайшее новолуние':u.nextNew,'Ближайшее полнолуние':u.nextFull,'Возраст Луны':u.age,'Направление цикла':u.direction,'ВАЖНО ДЛЯ ПРАКТИКИ':u.important,'Цифровой инструмент для планирования':u.footer1,'ритуально-обрядовых практик':u.footer2,'РАЗРАБОТАНО ОРДЕНОМ VERBUM DAEMONIS':u.developed,'Версия приложения 1.0.4':u.version,'НОВАЯ ПРАКТИКА':u.newPractice,'Выберите время':u.chooseTime,'Название':u.title,'Дата':u.date,'Время':u.time,'Направление':u.type,'Заметка':u.note,'Напомнить за 1 час':u.remind,'Сохранить':u.save,'Установить сейчас':u.installNow};
+ document.querySelectorAll('body *:not(script):not(style)').forEach(el=>{if(el.children.length===0){const k=(el.dataset.ruText||el.textContent).trim();if(!el.dataset.ruText&&exact[k])el.dataset.ruText=k;if(el.dataset.ruText&&exact[el.dataset.ruText])el.textContent=exact[el.dataset.ruText]}});
+ const nav=$$('.mobile-nav button');[u.navNow,u.navMoon,u.navHours,u.navPlan].forEach((v,i)=>{if(nav[i]){const b=nav[i].querySelector('b');nav[i].lastChild.nodeValue=v}});
+ setText('langBtn',FLAGS[state.lang]);setText('mobileLangBtn',FLAGS[state.lang]);renderLang();renderTypes()}
+function renderLang(){setHTML('langGrid',langNames.map(([k,f,n])=>`<button class="lang-card ${state.lang===k?'active':''}" data-lang="${k}"><span class="flag">${f}</span><span class="lang-name"><b>${n}</b></span></button>`).join(''))}
+function renderTypes(){const e=$('#pType');if(e)e.innerHTML=T().types.map(v=>`<option>${v}</option>`).join('')}
+function fallbackSun(){const n=new Date(),y=n.getFullYear(),m=n.getMonth(),d=n.getDate();state.sunrise=+new Date(y,m,d,6);state.sunset=+new Date(y,m,d,18);state.nextSunrise=+new Date(y,m,d+1,6);buildHours()}
+function buildHours(){const dl=(state.sunset-state.sunrise)/12,nl=(state.nextSunrise-state.sunset)/12,start=ORDER.indexOf(DAY_RULERS[new Date(state.sunrise).getDay()]);state.hours=[];for(let i=0;i<24;i++){const day=i<12,s=day?state.sunrise+i*dl:state.sunset+(i-12)*nl;state.hours.push({start:s,end:s+(day?dl:nl),p:ORDER[(start+i)%7]})}renderHours()}
+function currentHour(){return state.hours.find(h=>Date.now()>=h.start&&Date.now()<h.end)||state.hours[0]}
+function match(h){return state.intent==='all'||PLANET_META[h.p].intent.includes(state.intent)}
+function renderHours(){const u=U(),t=T();setHTML('intentDock',INTENT_KEYS.map((k,i)=>`<button class="${state.intent===k?'active':''}" data-intent="${k}">${t.intents[i]}</button>`).join(''));const now=Date.now();setHTML('dayWheel',state.hours.map((h,i)=>{const p=t.planets[h.p],m=PLANET_META[h.p],cur=now>=h.start&&now<h.end;return`<button class="hour-node ${cur?'current':''} ${match(h)?'match':''} ${state.intent!=='all'&&!match(h)?'dim':''}" data-hour="${i}"><span class="sym">${m.seal}</span><b>${p[0].toUpperCase()}</b><time>${format(h.start,{hour:'2-digit',minute:'2-digit'})}—${format(h.end,{hour:'2-digit',minute:'2-digit'})}</time><small>${p[2].slice(0,2).join(' · ')}</small></button>`}).join(''));let idx=state.hours.findIndex(h=>h.start>now&&match(h));if(idx<0)idx=state.hours.findIndex(match);state.nextIndex=Math.max(0,idx);const h=state.hours[state.nextIndex],p=t.planets[h.p];setText('nextTitle',state.lang==='en'?`Hour of ${p[1]}`:state.lang==='pl'?`Godzina ${p[1]}`:state.lang==='uk'?`Година ${p[1]}`:state.lang==='be'?`Гадзіна ${p[1]}`:state.lang==='kk'?`${p[1]} сағаты`:`Час ${p[1]}`);setText('nextTime',format(h.start,{hour:'2-digit',minute:'2-digit'}));setText('nextWhy',`${u.forces}: ${p[2].join(', ')}. ${u.fits}: ${p[3]}.`);setHTML('miniCycle',state.hours.slice(state.nextIndex,state.nextIndex+3).map(x=>{const q=t.planets[x.p],m=PLANET_META[x.p];return`<div class="mini-hour"><i>${m.seal}</i><div><b>${q[0].toUpperCase()}</b><span>${q[2].slice(0,2).join(' · ')}</span></div><time>${format(x.start,{hour:'2-digit',minute:'2-digit'})}</time></div>`}).join(''));renderCurrent()}
+function renderCurrent(){if(!state.hours.length)return;const h=currentHour(),p=T().planets[h.p],m=PLANET_META[h.p],left=Math.max(0,h.end-Date.now());setText('orbSeal',m.seal);setText('orbName',p[0].toUpperCase());setText('orbRange',`${format(h.start,{hour:'2-digit',minute:'2-digit'})}—${format(h.end,{hour:'2-digit',minute:'2-digit'})}`);setText('orbRemain',`${U().remaining} ${Math.floor(left/60000)} ${U().minutes}`);setText('currentSeal',m.seal);setText('currentTitle',state.lang==='en'?`Hour of ${p[1]}`:state.lang==='pl'?`Godzina ${p[1]}`:state.lang==='uk'?`Година ${p[1]}`:state.lang==='be'?`Гадзіна ${p[1]}`:state.lang==='kk'?`${p[1]} сағаты`:`Час ${p[1]}`);setText('currentRange',`${format(h.start,{hour:'2-digit',minute:'2-digit'})} — ${format(h.end,{hour:'2-digit',minute:'2-digit'})}`);setHTML('currentPowers',p[2].map(v=>`<span>${v}</span>`).join(''));setText('currentWorks',p[3]);setText('currentAvoid',p[4]);$('#hourProgress').style.width=Math.max(0,Math.min(100,(Date.now()-h.start)/(h.end-h.start)*100))+'%'}
+function renderMoon(){const m=moonInfo(),p=T().phases[m.idx],x=m.phase<=.5?100-m.phase*200:-100+(m.phase-.5)*200;$('#moonShadow').style.transform=`translateX(${x}%)`;setText('moonPhase',p[0]);setText('moonPct',Math.round(m.illum*100)+'%');setHTML('phaseRail',T().phases.map((q,i)=>`<article class="phase-step ${i===m.idx?'active':''}"><i>${['●','◐','○','◑'][i]}</i><h4>${q[0]}</h4><p>${q[1]}</p><button data-phase="${i}">${U().plan}</button></article>`).join(''));renderLunarMonth(m)}
+function renderLunarMonth(m=moonInfo()){const now=new Date(),ci=Math.floor((now-REF)/(SYN*864e5)),events=[new Date(REF+ci*SYN*864e5),new Date(REF+(ci+.25)*SYN*864e5),new Date(REF+(ci+.5)*SYN*864e5),new Date(REF+(ci+.75)*SYN*864e5),new Date(REF+(ci+1)*SYN*864e5)],names=[T().phases[0][0],state.lang==='en'?'First Quarter':state.lang==='pl'?'Pierwsza kwadra':state.lang==='uk'?'Перша чверть':state.lang==='be'?'Першая чвэрць':state.lang==='kk'?'Бірінші ширек':'Первая четверть',T().phases[2][0],state.lang==='en'?'Last Quarter':state.lang==='pl'?'Ostatnia kwadra':state.lang==='uk'?'Остання чверть':state.lang==='be'?'Апошняя чвэрць':state.lang==='kk'?'Соңғы ширек':'Последняя четверть',T().phases[0][0]];let ni=events.findIndex(d=>d>now);if(ni<0)ni=4;setText('lunarCurrentPhase',T().phases[m.idx][0]);setText('lunarTransitionText',`${names[ni]} — ${format(events[ni],{day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'})}`);setText('lunarNextLabel',U().until);setText('lunarNextCountdown',dur(events[ni]-now));[['newMoonDate',events[0]],['firstQuarterDate',events[1]],['fullMoonDateExact',events[2]],['lastQuarterDate',events[3]]].forEach(([id,d])=>setText(id,format(d,{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})));setText('nextNewMoon',format(lunarEvent(0),{day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'}));setText('toNewMoon',`${U().through} ${dur(lunarEvent(0)-now)}`);setText('nextFullMoon',format(lunarEvent(.5),{day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'}));setText('toFullMoon',`${U().through} ${dur(lunarEvent(.5)-now)}`);setText('moonAge',m.age.toFixed(1));setText('moonCycleDay',`${U().approx} ${Math.floor(m.age)+1} ${U().lunarDay}`);setText('moonDirection',m.phase<.5?U().growing:U().waning);setText('moonDirectionNote',m.phase<.5?U().strengthGrows:U().strengthWanes);setText('lunarMeaningText',T().phases[m.idx][1]+' '+T().phases[m.idx][2]);const prog=m.phase;if(innerWidth<=760){$('#lunarCycleProgress').style.height=(prog*276)+'px';$('#lunarCycleProgress').style.width='3px';$('#lunarCycleMarker').style.top=(12+prog*276)+'px'}else{$('#lunarCycleProgress').style.width=(prog*92)+'%';$('#lunarCycleProgress').style.height='3px';$('#lunarCycleMarker').style.left=(4+prog*92)+'%'}}
+function fallbackLongitude(i,d=new Date()){const per=[10759,4332.6,687,365.256,224.7,88,27.32],base=[300,20,120,280,340,220,90];return((base[i]+((d-REF)/864e5)/per[i]*360)%360+360)%360}
+function calculateAstronomy(){const obs=window.Astronomy?new Astronomy.Observer(state.lat,state.lon,0):null;state.positions=PLANET_META.map((p,i)=>{let lon=fallbackLongitude(i),alt=0,az=0;try{if(obs){lon=((Astronomy.EclipticLongitude(p.body,new Date())%360)+360)%360;const eq=Astronomy.Equator(p.body,new Date(),obs,true,true),h=Astronomy.Horizon(new Date(),obs,eq.ra,eq.dec,'normal');alt=h.altitude;az=h.azimuth}}catch(e){}return{lon,alt,az}});setText('moonAltitude',state.positions[6].alt.toFixed(1)+'°');setText('moonAzimuth',state.positions[6].az.toFixed(1)+'°');renderPlanetarium();selectPlanet(state.selectedPlanet);setText('status',obs?'Astronomy Engine active':'Local backup calculations')}
+function renderPlanetarium(){const box=$('#planetarium');box.querySelectorAll('.planet-node').forEach(n=>n.remove());T().planets.forEach((p,i)=>{const b=document.createElement('button');b.className='planet-node'+(i===state.selectedPlanet?' active':'');b.dataset.astroPlanet=i;b.style.left=positions[i][0]+'%';b.style.top=positions[i][1]+'%';b.innerHTML=`<b>${PLANET_META[i].seal}</b><small>${p[0].toUpperCase()}</small>`;box.appendChild(b)});drawAspects()}
+function drawAspects(){const c=$('#aspectCanvas'),box=$('#planetarium');if(!c||!box)return;const r=box.getBoundingClientRect(),d=devicePixelRatio||1;c.width=r.width*d;c.height=r.height*d;const x=c.getContext('2d');x.scale(d,d);const nodes=$$('.planet-node');for(let i=0;i<state.positions.length;i++)for(let j=i+1;j<state.positions.length;j++){let q=Math.abs(state.positions[i].lon-state.positions[j].lon);q=Math.min(q,360-q);const a=[0,60,90,120,180].find(v=>Math.abs(q-v)<6);if(a===undefined)continue;x.strokeStyle=a===90?'rgba(201,138,150,.45)':a===60||a===120?'rgba(143,200,162,.45)':'rgba(223,188,112,.42)';x.beginPath();x.moveTo(nodes[i].offsetLeft,nodes[i].offsetTop);x.lineTo(nodes[j].offsetLeft,nodes[j].offsetTop);x.stroke()}}
+function selectPlanet(i){state.selectedPlanet=+i;$$('.planet-node').forEach((n,j)=>n.classList.toggle('active',j===state.selectedPlanet));const p=T().planets[state.selectedPlanet],a=state.positions[state.selectedPlanet]||{lon:0,alt:0,az:0};setText('planetDetailName',p[0]);setHTML('planetDetailTags',p[2].map(v=>`<span>${v}</span>`).join(''));setText('planetSign',T().signs[Math.floor(a.lon/30)%12]);setText('planetLongitude',a.lon.toFixed(2)+'°');setText('planetAltitude',a.alt.toFixed(2)+'°');setText('planetAzimuth',a.az.toFixed(2)+'°');setText('planetMetal',p[5]);setText('planetSphere',p[6]);setText('planetHistory',p[6])}
+function practices(){try{return JSON.parse(safeStore.get('lunarisPractices','[]')||'[]')}catch{return[]}}
+function renderPractices(){const list=practices().sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));setHTML('practiceList',list.length?list.map(p=>`<div style="display:grid;grid-template-columns:65px 1fr auto;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid #ffffff0d"><div style="border:1px solid var(--line);border-radius:13px;text-align:center;padding:8px"><b style="display:block;font-size:21px">${new Date(p.date+'T00:00').getDate()}</b><span style="font-size:9px;color:var(--gold2)">${new Intl.DateTimeFormat(LOCALES[state.lang],{month:'short'}).format(new Date(p.date+'T00:00'))}</span></div><div><b>${p.title}</b><div style="font-size:10px;color:#999;margin-top:5px">${p.time} · ${p.type}</div></div><button data-del="${p.id}" style="border:0;background:#ffffff08;color:#aaa;border-radius:50%;width:32px;height:32px">×</button></div>`).join(''):`<div style="text-align:center;color:#8f8794;padding:35px">${U().empty}</div>`)}
+function openPlan(data={}){const d=new Date(Date.now()+3600000);$('#pTitle').value=data.title||'';$('#pDate').value=data.date||d.toISOString().slice(0,10);$('#pTime').value=data.time||d.toTimeString().slice(0,5);$('#pNote').value=data.note||'';$('#planModal').classList.add('open')}
+function closePlan(){$('#planModal').classList.remove('open')}
+async function locate(){if(!navigator.geolocation)return;navigator.geolocation.getCurrentPosition(async p=>{state.lat=p.coords.latitude;state.lon=p.coords.longitude;calculateAstronomy();try{const q=new URLSearchParams({latitude:state.lat,longitude:state.lon,timezone:'auto',forecast_days:'2',current:'temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,surface_pressure,wind_speed_10m',daily:'sunrise,sunset'}),r=await fetch('https://api.open-meteo.com/v1/forecast?'+q),d=await r.json(),c=d.current;state.tz=d.timezone||state.tz;setText('temp',Math.round(c.temperature_2m)+'°');setText('weatherText',T().weather[c.weather_code]||U().local);setText('feels',Math.round(c.apparent_temperature)+'°');setText('wind',Math.round(c.wind_speed_10m)+' км/ч');setText('humidity',c.relative_humidity_2m+'%');setText('pressure',Math.round(c.surface_pressure)+' гПа');state.sunrise=+new Date(d.daily.sunrise[0]);state.sunset=+new Date(d.daily.sunset[0]);state.nextSunrise=+new Date(d.daily.sunrise[1]);buildHours()}catch(e){}},()=>{}, {enableHighAccuracy:true,timeout:10000,maximumAge:300000})}
+function updateClock(){const n=new Date();setText('clock',format(n,{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}));setText('date',format(n,{weekday:'long',day:'numeric',month:'long',year:'numeric'}));renderCurrent()}
+function renderEverything(){applyStatic();renderMoon();renderHours();renderPractices();calculateAstronomy();updateClock()}
+function openInstall(){const ios=/iphone|ipad|ipod/i.test(navigator.userAgent),standalone=matchMedia('(display-mode:standalone)').matches||navigator.standalone;$('#iosInstallSteps').hidden=!ios;if(standalone){setText('installText',U().installed);$('#nativeInstall').style.display='none'}else if(ios){setText('installText',U().installLead);$('#nativeInstall').style.display='none'}else if(state.installPrompt){setText('installText',U().installLead);$('#nativeInstall').style.display='flex'}else{setText('installText',U().installLead);$('#nativeInstall').style.display='none'}$('#installModal').classList.add('open')}
+function initSky(){const c=$('#stars'),x=c.getContext('2d');let stars=[];function resize(){c.width=innerWidth*devicePixelRatio;c.height=innerHeight*devicePixelRatio;x.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);stars=Array.from({length:Math.min(260,innerWidth/3)},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.1+.15,a:Math.random(),v:Math.random()*.008+.002}))}function draw(){x.clearRect(0,0,innerWidth,innerHeight);for(const s of stars){s.a+=s.v;if(s.a>1||s.a<.1)s.v*=-1;x.globalAlpha=s.a;x.fillStyle='#fff8e9';x.beginPath();x.arc(s.x,s.y,s.r,0,Math.PI*2);x.fill()}x.globalAlpha=1;requestAnimationFrame(draw)}addEventListener('resize',()=>{resize();drawAspects();renderLunarMonth()});resize();draw()}
+function bind(){document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g)document.getElementById(g.dataset.go)?.scrollIntoView({behavior:'smooth'});const lp=e.target.closest('[data-lang]');if(lp){state.lang=lp.dataset.lang;safeStore.set('lunarisLang',state.lang);renderEverything();$('#langModal').classList.remove('open');scrollTo({top:0,behavior:'smooth'})}const it=e.target.closest('[data-intent]');if(it){state.intent=it.dataset.intent;renderHours()}const hp=e.target.closest('[data-hour]');if(hp){const h=state.hours[+hp.dataset.hour],p=T().planets[h.p];openPlan({title:p[0],date:new Date(h.start).toISOString().slice(0,10),time:new Date(h.start).toTimeString().slice(0,5),note:p[3]})}const pp=e.target.closest('[data-phase]');if(pp){const p=T().phases[+pp.dataset.phase];openPlan({title:p[0],note:p[1]})}const ap=e.target.closest('[data-astro-planet]');if(ap)selectPlanet(ap.dataset.astroPlanet);const del=e.target.closest('[data-del]');if(del){safeStore.set('lunarisPractices',JSON.stringify(practices().filter(x=>x.id!=del.dataset.del)));renderPractices()}});$('#langBtn').onclick=$('#mobileLangBtn').onclick=()=>{$('#langModal').classList.add('open');renderLang()};$$('[data-close-lang]').forEach(x=>x.onclick=()=>$('#langModal').classList.remove('open'));$$('[data-close-plan]').forEach(x=>x.onclick=closePlan);$$('[data-install],#installBtn,#mobileInstallBtn').forEach(x=>x.onclick=openInstall);$$('[data-close-install]').forEach(x=>x.onclick=()=>$('#installModal').classList.remove('open'));$('#quickPlan').onclick=$('#addPlan').onclick=()=>openPlan();$('#planCurrent').onclick=()=>{const h=currentHour(),p=T().planets[h.p];openPlan({title:p[0],date:new Date(h.start).toISOString().slice(0,10),time:new Date(h.start).toTimeString().slice(0,5),note:p[3]})};$('#planNext').onclick=()=>{const h=state.hours[state.nextIndex],p=T().planets[h.p];openPlan({title:p[0],date:new Date(h.start).toISOString().slice(0,10),time:new Date(h.start).toTimeString().slice(0,5),note:p[3]})};$('#planForm').onsubmit=async e=>{e.preventDefault();const a=practices();a.push({id:Date.now(),title:$('#pTitle').value.trim(),date:$('#pDate').value,time:$('#pTime').value,type:$('#pType').value,note:$('#pNote').value.trim()});safeStore.set('lunarisPractices',JSON.stringify(a));renderPractices();closePlan();toast(U().saved)};$('#nativeInstall').onclick=async()=>{if(state.installPrompt){state.installPrompt.prompt();await state.installPrompt.userChoice;state.installPrompt=null}};addEventListener('beforeinstallprompt',e=>{e.preventDefault();state.installPrompt=e});addEventListener('appinstalled',()=>toast(U().installed))}
+function init(){history.scrollRestoration='manual';scrollTo(0,0);initSky();fallbackSun();bind();renderEverything();setInterval(updateClock,1000);setInterval(renderMoon,60000);locate();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{})}
+window.addEventListener('error',e=>console.error('LUNARIS',e.error||e.message));document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
+})();</script></body></html>
